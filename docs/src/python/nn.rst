@@ -5,7 +5,7 @@
 Neural Networks
 ===============
 
-Writing arbitrarily complex neural networks in MLX can be done using only
+Writing arbitrarily complex neural networks in UMLX can be done using only
 :class:`mlx.core.array` and :meth:`mlx.core.value_and_grad`. However, this requires the
 user to write again and again the same simple neural network operations as well
 as handle all the parameter state and initialization manually and explicitly.
@@ -39,7 +39,7 @@ Quick Start with Neural Networks
             return x
 
     # The model is created with all its parameters but nothing is initialized
-    # yet because MLX is lazily evaluated
+    # yet because UMLX is lazily evaluated
     mlp = MLP(2, 10)
 
     # We can access its parameters by calling mlp.parameters()
@@ -70,7 +70,7 @@ The Module Class
 ----------------
 
 The workhorse of any neural network library is the :class:`Module` class. In
-MLX the :class:`Module` class is a container of :class:`mlx.core.array` or
+UMLX the :class:`Module` class is a container of :class:`mlx.core.array` or
 :class:`Module` instances. Its main function is to provide a way to
 recursively **access** and **update** its parameters and those of its
 submodules.
@@ -93,7 +93,7 @@ the gradients returned will be with respect to these trainable parameters.
 Updating the Parameters
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-MLX modules allow accessing and updating individual parameters. However, most
+UMLX modules allow accessing and updating individual parameters. However, most
 times we need to update large subsets of a module's parameters. This action is
 performed by :meth:`Module.update`.
 
@@ -139,12 +139,12 @@ with:
 Value and Grad
 --------------
 
-Using a :class:`Module` does not preclude using MLX's high order function
+Using a :class:`Module` does not preclude using UMLX's high order function
 transformations (:meth:`mlx.core.value_and_grad`, :meth:`mlx.core.grad`, etc.). However,
 these function transformations assume pure functions, namely the parameters
 should be passed as an argument to the function being transformed.
 
-There is an easy pattern to achieve that with MLX modules
+There is an easy pattern to achieve that with UMLX modules
 
 .. code-block:: python
 

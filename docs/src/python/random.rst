@@ -3,7 +3,7 @@
 Random
 ======
 
-Random sampling functions in MLX use an implicit global PRNG state by default.
+Random sampling functions in UMLX use an implicit global PRNG state by default.
 However, all function take an optional ``key`` keyword argument for when more
 fine-grained control or explicit state management is needed.
 

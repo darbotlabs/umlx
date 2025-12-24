@@ -5,7 +5,7 @@
 Optimizers
 ==========
 
-The optimizers in MLX can be used both with :mod:`mlx.nn` but also with pure
+The optimizers in UMLX can be used both with :mod:`mlx.nn` but also with pure
 :mod:`mlx.core` functions. A typical example involves calling
 :meth:`Optimizer.update` to update a model's parameters based on the loss
 gradients and subsequently calling :func:`mlx.core.eval` to evaluate both the
