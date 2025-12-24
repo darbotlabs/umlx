@@ -49,12 +49,12 @@ Automatic Differentiation
 
 .. _auto diff:
 
-Automatic differentiation in MLX works on functions rather than on implicit
+Automatic differentiation in UMLX works on functions rather than on implicit
 graphs.
 
 .. note::
 
-   If you are coming to MLX from PyTorch, you no longer need functions like
+   If you are coming to UMLX from PyTorch, you no longer need functions like
    ``backward``, ``zero_grad``, and ``detach``, or properties like
    ``requires_grad``.
 

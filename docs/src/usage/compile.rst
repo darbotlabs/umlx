@@ -5,7 +5,7 @@ Compilation
 
 .. currentmodule:: mlx.core
 
-MLX has a :func:`compile` function transformation which compiles computation
+UMLX has a :func:`compile` function transformation which compiles computation
 graphs. Function compilation results in smaller graphs by merging common work
 and fusing certain operations. In many cases this can lead to big improvements
 in run-time and memory use.
@@ -39,9 +39,9 @@ Let's start with a simple example:
 The output of both the regular function and the compiled function is the same
 up to numerical precision.
 
-The first time you call a compiled function, MLX will build the compute
+The first time you call a compiled function, UMLX will build the compute
 graph, optimize it, and generate and compile code. This can be relatively
-slow. However, MLX will cache compiled functions, so calling a compiled
+slow. However, UMLX will cache compiled functions, so calling a compiled
 function multiple times will not initiate a new compilation. This means you
 should typically compile functions that you plan to use more than once.
 
