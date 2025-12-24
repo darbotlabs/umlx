@@ -1,9 +1,9 @@
 ## Setup
 
-Install MLX:
+Install UMLX:
 
 ```bash
-pip install mlx>=0.22
+pip install umlx>=0.22
 ```
 
 Build the C++ examples:

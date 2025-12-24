@@ -18,7 +18,7 @@
 namespace my_ext {
 
 // A helper function to find the location of the current binary on disk.
-// The Metal library ("mlx_ext.mtllib"), should be in the same directory.
+// The Metal library ("umlx_ext.mtllib"), should be in the same directory.
 std::string current_binary_dir() {
   static std::string binary_dir = []() {
     Dl_info info;

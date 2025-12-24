@@ -39,7 +39,7 @@ void array_basics() {
 
   // Make a multidimensional array:
   x = mx::array({1.0f, 2.0f, 3.0f, 4.0f}, {2, 2});
-  // mlx is row-major by default so the first row of this array
+  // umlx is row-major by default so the first row of this array
   // is [1.0, 2.0] and the second row is [3.0, 4.0]
 
   // Make an array of shape {2, 2} filled with ones:
@@ -51,14 +51,14 @@ void array_basics() {
   // Same thing:
   z = x + y;
 
-  // mlx is lazy by default. At this point `z` only
+  // umlx is lazy by default. At this point `z` only
   // has a shape and a type but no actual data:
   assert(z.dtype() == mx::float32);
   assert(z.shape(0) == 2);
   assert(z.shape(1) == 2);
 
   // To actually run the computation you must evaluate `z`.
-  // Under the hood, mlx records operations in a graph.
+  // Under the hood, umlx records operations in a graph.
   // The variable `z` is a node in the graph which points to its operation
   // and inputs. When `eval` is called on an array (or arrays), the array and
   // all of its dependencies are recursively evaluated to produce the result.

@@ -1,9 +1,9 @@
 ## Build and Run 
 
-Install MLX with Python:
+Install UMLX with Python:
 
 ```bash
-pip install mlx>=0.22
+pip install umlx>=0.22
 ```
 
 Build the C++ example:
