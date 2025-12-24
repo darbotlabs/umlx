@@ -8,11 +8,11 @@ Lazy Evaluation
 Why Lazy Evaluation
 -------------------
 
-When you perform operations in MLX, no computation actually happens. Instead a
+When you perform operations in UMLX, no computation actually happens. Instead a
 compute graph is recorded. The actual computation only happens if an
 :func:`eval` is performed.
 
-MLX uses lazy evaluation because it has some nice features, some of which we
+UMLX uses lazy evaluation because it has some nice features, some of which we
 describe below.
 
 Transforming Compute Graphs
@@ -22,14 +22,14 @@ Lazy evaluation lets us record a compute graph without actually doing any
 computations. This is useful for function transformations like :func:`grad` and
 :func:`vmap` and graph optimizations.
 
-Currently, MLX does not compile and rerun compute graphs. They are all
+Currently, UMLX does not compile and rerun compute graphs. They are all
 generated dynamically. However, lazy evaluation makes it much easier to
 integrate compilation for future performance enhancements.
 
 Only Compute What You Use
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In MLX you do not need to worry as much about computing outputs that are never
+In UMLX you do not need to worry as much about computing outputs that are never
 used. For example:
 
 .. code-block:: python

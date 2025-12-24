@@ -5,7 +5,7 @@
 Distributed Communication
 ==========================
 
-MLX provides a distributed communication package using MPI. The MPI library is
+UMLX provides a distributed communication package using MPI. The MPI library is
 loaded at runtime; if MPI is available then distributed communication is also
 made available.
 

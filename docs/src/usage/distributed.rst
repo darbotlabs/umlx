@@ -5,7 +5,7 @@ Distributed Communication
 
 .. currentmodule:: mlx.core.distributed
 
-MLX supports distributed communication operations that allow the computational cost
+UMLX supports distributed communication operations that allow the computational cost
 of training or inference to be shared across many physical machines. At the
 moment we support several different communication backends introduced below.
 
@@ -33,7 +33,7 @@ seen in the :ref:`API docs<distributed>`.
 Getting Started
 ---------------
 
-A distributed program in MLX is as simple as:
+A distributed program in UMLX is as simple as:
 
 .. code:: python
 

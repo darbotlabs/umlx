@@ -77,16 +77,16 @@ The reason for the lack of bounds checking is that exceptions cannot propagate
 from the GPU. Performing bounds checking for array indices before launching the
 kernel would be extremely inefficient.
 
-Indexing with boolean masks is something that MLX may support in the future. In
-general, MLX has limited support for operations for which output
+Indexing with boolean masks is something that UMLX may support in the future. In
+general, UMLX has limited support for operations for which output
 *shapes* are dependent on input *data*. Other examples of these types of
-operations which MLX does not yet support include :func:`numpy.nonzero` and the
+operations which UMLX does not yet support include :func:`numpy.nonzero` and the
 single input version of :func:`numpy.where`.
 
 In Place Updates
 ----------------
 
-In place updates to indexed arrays are possible in MLX. For example:
+In place updates to indexed arrays are possible in UMLX. For example:
 
 .. code-block:: shell
 
@@ -150,8 +150,8 @@ and ones elsewhere.
 Boolean Mask Assignment
 -----------------------
 
-MLX supports boolean indices using NumPy syntax. A mask must already be
-a :class:`bool_` MLX :class:`array` or a NumPy ``ndarray`` with ``dtype=bool``.
+UMLX supports boolean indices using NumPy syntax. A mask must already be
+a :class:`bool_` UMLX :class:`array` or a NumPy ``ndarray`` with ``dtype=bool``.
 Other index types are routed through the standard scatter code.
 
 .. code-block:: shell

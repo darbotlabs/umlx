@@ -5,7 +5,7 @@ Function Transforms
 
 .. currentmodule:: mlx.core
 
-MLX uses composable function transformations for automatic differentiation,
+UMLX uses composable function transformations for automatic differentiation,
 vectorization, and compute graph optimizations. To see the complete list of
 function transformations check-out the :ref:`API documentation <transforms>`.
 
