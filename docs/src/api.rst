@@ -16,7 +16,7 @@ Start the API server using the command line:
 
 .. code-block:: shell
 
-    python -m umlx.api.server
+    python -m mlx.api.server
 
 Or using the installed entry point:
 
@@ -37,7 +37,7 @@ Start the server programmatically:
 
 .. code-block:: python
 
-    from umlx.api import start_server
+    from mlx.api import start_server
     
     start_server(host="0.0.0.0", port=1023)
 
