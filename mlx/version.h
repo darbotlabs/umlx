@@ -1,4 +1,5 @@
-// Copyright © 2025 Apple Inc.
+// Copyright © 2025 UMLX Contributors
+// Based on MLX © 2023-2025 Apple Inc.
 
 #pragma once
 
@@ -10,7 +11,7 @@
 
 namespace mlx::core {
 
-/* A string representation of the MLX version in the format
+/* A string representation of the UMLX version in the format
  * "major.minor.patch".
  *
  * For dev builds, the version will include the suffix ".devYYYYMMDD+hash"

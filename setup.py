@@ -211,13 +211,13 @@ if __name__ == "__main__":
     _setup = partial(
         setup,
         version=version,
-        author="MLX Contributors",
-        author_email="mlx@group.apple.com",
-        description="A framework for machine learning on Apple silicon.",
+        author="UMLX Contributors",
+        author_email="contact@darbotlabs.com",
+        description="Universal MLX: A cross-platform machine learning framework for x64, ARM, Apple Silicon, Nvidia CUDA, and AMD ROCM.",
         long_description=long_description,
         long_description_content_type="text/markdown",
         license="MIT",
-        url="https://github.com/ml-explore/mlx",
+        url="https://github.com/darbotlabs/umlx",
         include_package_data=True,
         package_dir=package_dir,
         zip_safe=False,
@@ -238,11 +238,17 @@ if __name__ == "__main__":
             "torch>=2.9",
             "typing_extensions",
         ],
+        "api": [
+            "fastapi>=0.115.0",
+            "uvicorn[standard]>=0.32.0",
+            "pydantic>=2.10.0",
+        ],
     }
     entry_points = {
         "console_scripts": [
             "mlx.launch = mlx._distributed_utils.launch:main",
             "mlx.distributed_config = mlx._distributed_utils.config:main",
+            "mlx.api = mlx.api.server:main",
         ]
     }
     install_requires = []

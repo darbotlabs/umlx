@@ -1,35 +1,41 @@
-MLX
-===
+UMLX
+====
 
-MLX is a NumPy-like array framework designed for efficient and flexible machine
-learning on Apple silicon, brought to you by Apple machine learning research.
+UMLX (Universal MLX) is a NumPy-like array framework designed for efficient and 
+flexible machine learning across multiple platforms. Based on Apple's MLX framework,
+UMLX extends support to x64, ARM, Nvidia CUDA, and AMD ROCM for GPU and NPU acceleration.
 
-The Python API closely follows NumPy with a few exceptions. MLX also has a
+The Python API closely follows NumPy with a few exceptions. UMLX also has a
 fully featured C++ API which closely follows the Python API.
 
-The main differences between MLX and NumPy are:
+The main features of UMLX include:
 
- - **Composable function transformations**: MLX has composable function
+ - **Cross-Platform Support**: UMLX runs on Apple Silicon (Metal), Nvidia GPUs 
+   (CUDA), AMD GPUs (ROCM), x64 CPUs, and ARM processors including NPUs.
+ - **Composable function transformations**: UMLX has composable function
    transformations for automatic differentiation, automatic vectorization,
    and computation graph optimization.
- - **Lazy computation**: Computations in MLX are lazy. Arrays are only
+ - **Lazy computation**: Computations in UMLX are lazy. Arrays are only
    materialized when needed.
  - **Multi-device**: Operations can run on any of the supported devices (CPU,
-   GPU, ...)
+   GPU, NPU)
+ - **REST API**: Complete FastAPI integration exposes functionality via REST API
+   on port 1023.
 
-The design of MLX is inspired by frameworks like `PyTorch
+The design of UMLX builds upon MLX and is inspired by frameworks like `PyTorch
 <https://pytorch.org/>`_, `Jax <https://github.com/google/jax>`_, and
-`ArrayFire <https://arrayfire.org/>`_. A notable difference from these
-frameworks and MLX is the *unified memory model*. Arrays in MLX live in shared
-memory. Operations on MLX arrays can be performed on any of the supported
-device types without performing data copies. Currently supported device types
-are the CPU and GPU.
+`ArrayFire <https://arrayfire.org/>`_. UMLX extends the *unified memory model*
+where possible. Arrays in UMLX live in shared memory on supported platforms.
+Operations on UMLX arrays can be performed on any of the supported device types
+without performing data copies where hardware supports it. Currently supported 
+device types include CPU, GPU (Metal/CUDA/ROCM), and NPU.
 
 .. toctree::
    :caption: Install
    :maxdepth: 1
 
    install
+   platforms
 
 .. toctree::
    :caption: Usage 
@@ -46,6 +52,7 @@ are the CPU and GPU.
    usage/distributed
    usage/using_streams
    usage/export
+   api
 
 .. toctree::
    :caption: Examples

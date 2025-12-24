@@ -18,7 +18,8 @@ endif()
 project(
   mlx
   LANGUAGES C CXX
-  VERSION ${MLX_PROJECT_VERSION})
+  VERSION ${MLX_PROJECT_VERSION}
+  DESCRIPTION "UMLX: Universal MLX - Cross-platform ML framework")
 
 # ----------------------------- Setup -----------------------------
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
