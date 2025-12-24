@@ -246,9 +246,9 @@ if __name__ == "__main__":
     }
     entry_points = {
         "console_scripts": [
-            "mlx.launch = mlx._distributed_utils.launch:main",
-            "mlx.distributed_config = mlx._distributed_utils.config:main",
-            "mlx.api = mlx.api.server:main",
+            "umlx.launch = mlx._distributed_utils.launch:main",
+            "umlx.distributed_config = mlx._distributed_utils.config:main",
+            "umlx.api = mlx.api.server:main",
         ]
     }
     install_requires = []
@@ -272,17 +272,17 @@ if __name__ == "__main__":
     if build_stage != 2:
         if build_stage == 1:
             install_requires.append(
-                f'mlx-metal=={version}; platform_system == "Darwin"'
+                f'umlx-metal=={version}; platform_system == "Darwin"'
             )
-            extras["cuda"] = [f'mlx-cuda-12=={version}; platform_system == "Linux"']
+            extras["cuda"] = [f'umlx-cuda-12=={version}; platform_system == "Linux"']
             for toolkit in [12, 13]:
                 extras[f"cuda{toolkit}"] = [
-                    f'mlx-cuda-{toolkit}=={version}; platform_system == "Linux"'
+                    f'umlx-cuda-{toolkit}=={version}; platform_system == "Linux"'
                 ]
-            extras["cpu"] = [f'mlx-cpu=={version}; platform_system == "Linux"']
+            extras["cpu"] = [f'umlx-cpu=={version}; platform_system == "Linux"']
 
         _setup(
-            name="mlx",
+            name="umlx",
             packages=packages,
             extras_require=extras,
             entry_points=entry_points,
@@ -291,10 +291,10 @@ if __name__ == "__main__":
         )
     else:
         if build_macos:
-            name = "mlx-metal"
+            name = "umlx-metal"
         elif build_cuda:
             toolkit = cuda_toolkit_major_version()
-            name = f"mlx-cuda-{toolkit}"
+            name = f"umlx-cuda-{toolkit}"
             # Note: update following files when new dependency is added:
             # * .github/actions/build-cuda-release/action.yml
             # * mlx/backend/cuda/CMakeLists.txt
@@ -316,7 +316,7 @@ if __name__ == "__main__":
             ]
 
         else:
-            name = "mlx-cpu"
+            name = "umlx-cpu"
         _setup(
             name=name,
             packages=["mlx"],

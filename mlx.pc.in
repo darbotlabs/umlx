@@ -1,13 +1,13 @@
-# Find MLX
+# Find UMLX
 #
 # Defines the following variables:
 #
-#   MLX_FOUND            : True if MLX is found
+#   MLX_FOUND            : True if UMLX is found
 #   MLX_INCLUDE_DIRS     : Include directory
 #   MLX_LIBRARIES        : Libraries to link against
 #   MLX_CXX_FLAGS        : Additional compiler flags
-#   MLX_BUILD_ACCELERATE : True if MLX was built with accelerate 
-#   MLX_BUILD_METAL      : True if MLX was built with metal 
+#   MLX_BUILD_ACCELERATE : True if UMLX was built with accelerate 
+#   MLX_BUILD_METAL      : True if UMLX was built with metal 
 
 @PACKAGE_INIT@
 

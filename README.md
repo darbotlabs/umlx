@@ -13,8 +13,8 @@ Some key features of UMLX include:
 - **Cross-Platform Support**: UMLX runs on Apple Silicon (Metal), Nvidia GPUs (CUDA), AMD GPUs (ROCM), x64 CPUs, and ARM processors including NPUs.
 
 - **Familiar APIs**: UMLX maintains API compatibility with MLX, closely following NumPy conventions. It includes fully featured Python, C++, [C](https://github.com/ml-explore/mlx-c), and
-   [Swift](https://github.com/ml-explore/mlx-swift/) APIs. Higher-level packages like `mlx.nn` and
-   `mlx.optimizers` follow PyTorch patterns for building complex models.
+   [Swift](https://github.com/ml-explore/mlx-swift/) APIs. Higher-level packages like `umlx.nn` and
+   `umlx.optimizers` follow PyTorch patterns for building complex models.
 
 - **REST API Integration**: Complete FastAPI integration exposes all functionality via REST API on port 1023.
 
@@ -63,7 +63,7 @@ For more comprehensive examples, see the original [MLX examples repo](https://gi
 ### Basic Array Operations
 
 ```python
-import mlx.core as mx
+import umlx.core as mx
 
 # Create arrays
 a = mx.array([1, 2, 3, 4])
@@ -82,7 +82,7 @@ UMLX includes a FastAPI-based REST API for accessing functionality remotely:
 
 ```bash
 # Start the API server (default port 1023)
-python -m mlx.api.server
+python -m umlx.api.server
 ```
 
 API endpoints provide access to:
@@ -97,10 +97,10 @@ See the [API documentation](https://github.com/darbotlabs/umlx/tree/main/docs) f
 
 ### Apple Silicon (macOS)
 
-UMLX is available on [PyPI](https://pypi.org/project/mlx/). To install on macOS with Metal support:
+UMLX is available on [PyPI](https://pypi.org/project/umlx/). To install on macOS with Metal support:
 
 ```bash
-pip install mlx
+pip install umlx
 ```
 
 ### Linux with CUDA (Nvidia)
@@ -108,7 +108,7 @@ pip install mlx
 For Nvidia GPU support with CUDA Toolkit:
 
 ```bash
-pip install mlx[cuda]
+pip install umlx[cuda]
 ```
 
 Supports CUDA Toolkit 12 and 13 with Compute Capability 7.5+ (Turing, Ampere, Ada Lovelace, Hopper, Blackwell).
@@ -118,7 +118,7 @@ Supports CUDA Toolkit 12 and 13 with Compute Capability 7.5+ (Turing, Ampere, Ad
 For AMD GPU support (coming soon):
 
 ```bash
-pip install mlx[rocm]
+pip install umlx[rocm]
 ```
 
 ### CPU-Only (x64/ARM)
@@ -126,7 +126,7 @@ pip install mlx[rocm]
 For CPU-only installations on x64 or ARM processors:
 
 ```bash
-pip install mlx[cpu]
+pip install umlx[cpu]
 ```
 
 ### Building from Source
