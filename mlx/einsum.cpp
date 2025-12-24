@@ -11,7 +11,7 @@ namespace mlx::core {
 
 namespace {
 
-// The MLX einsum implementation is based on NumPy (which is based on
+// The UMLX einsum implementation is based on NumPy (which is based on
 // opt_einsum):
 // https://github.com/numpy/numpy/blob/1d49c7f7ff527c696fc26ab2278ad51632a66660/numpy/_core/einsumfunc.py#L743
 // https://github.com/dgasmith/opt_einsum

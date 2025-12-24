@@ -45,7 +45,7 @@ class Module(dict):
 
         model = MyMLP(2, 1)
 
-        # All the model parameters are created but since MLX is lazy by
+        # All the model parameters are created but since UMLX is lazy by
         # default, they are not evaluated yet. Calling `mx.eval` actually
         # allocates memory and initializes the parameters.
         mx.eval(model.parameters())

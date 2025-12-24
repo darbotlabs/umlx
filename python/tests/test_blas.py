@@ -1147,7 +1147,7 @@ class TestBlas(mlx_tests.MLXTestCase):
 
         out_np = np_gather_mm(a_np, b_np, lhs_indices, rhs_indices)
 
-        # MLX
+        # UMLX
         a_mx = a_mx.reshape((5, 1, 32, 32))
         b_mx = b_mx.reshape((1, 3, 32, 32))
 
