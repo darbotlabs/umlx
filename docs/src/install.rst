@@ -15,7 +15,7 @@ For Apple Silicon Macs with Metal GPU support:
 
 .. code-block:: shell
 
-    pip install mlx
+    pip install umlx
 
 System requirements:
 
@@ -33,7 +33,7 @@ For Linux systems with Nvidia GPUs and CUDA support:
 
 .. code-block:: shell
 
-    pip install mlx[cuda12]
+    pip install umlx[cuda12]
 
 System requirements for CUDA package:
 
@@ -43,7 +43,7 @@ System requirements for CUDA package:
 - Linux distribution with glibc >= 2.35
 - Python >= 3.10
 
-For CUDA 13 use ``pip install mlx[cuda13]``. The CUDA 13 package requires
+For CUDA 13 use ``pip install umlx[cuda13]``. The CUDA 13 package requires
 an Nvidia driver >= 580 or an appropriate CUDA compatibility package.
 
 **DGX Spark Containers**: UMLX supports DGX Spark specific containers with 
@@ -56,7 +56,7 @@ For AMD GPUs with ROCM support (coming soon):
 
 .. code-block:: shell
 
-    pip install mlx[rocm]
+    pip install umlx[rocm]
 
 UMLX supports AMD's unified memory architecture including configurations with
 x64 + 128GB unified memory + NPU.
@@ -68,7 +68,7 @@ For a CPU-only version of UMLX on x64 or ARM processors:
 
 .. code-block:: shell
 
-    pip install mlx[cpu]
+    pip install umlx[cpu]
 
 System requirements:
 
@@ -87,7 +87,7 @@ To use the UMLX REST API, install with API dependencies:
 
 .. code-block:: shell
 
-    pip install mlx[api]
+    pip install umlx[api]
 
 This enables the FastAPI server for remote access to UMLX functionality on port 1023.
 
@@ -133,14 +133,14 @@ Python API
 
 .. _python install:
 
-To build and install the MLX python library from source, first, clone MLX from
-`its GitHub repo <https://github.com/ml-explore/mlx>`_:
+To build and install the UMLX python library from source, first, clone UMLX from
+`its GitHub repo <https://github.com/darbotlabs/umlx>`_:
 
 .. code-block:: shell
 
-   git clone git@github.com:ml-explore/mlx.git mlx && cd mlx
+   git clone git@github.com:darbotlabs/umlx.git umlx && cd umlx
 
-Then simply build and install MLX using pip:
+Then simply build and install UMLX using pip:
 
 .. code-block:: shell
 
@@ -170,15 +170,15 @@ C++ API
 
 .. _cpp install:
 
-Currently, MLX must be built and installed from source.
+Currently, UMLX must be built and installed from source.
 
-Similarly to the python library, to build and install the MLX C++ library start
-by cloning MLX from `its GitHub repo
-<https://github.com/ml-explore/mlx>`_:
+Similarly to the python library, to build and install the UMLX C++ library start
+by cloning UMLX from `its GitHub repo
+<https://github.com/darbotlabs/umlx>`_:
 
 .. code-block:: shell
 
-   git clone git@github.com:ml-explore/mlx.git mlx && cd mlx
+   git clone git@github.com:darbotlabs/umlx.git umlx && cd umlx
 
 Create a build directory and run CMake and make:
 
@@ -255,7 +255,7 @@ Binary Size Minimization
 To produce a smaller binary use the CMake flags ``CMAKE_BUILD_TYPE=MinSizeRel``
 and ``BUILD_SHARED_LIBS=ON``.
 
-The MLX CMake build has several additional options to make smaller binaries.
+The UMLX CMake build has several additional options to make smaller binaries.
 For example, if you don't need the CPU backend or support for safetensors and
 GGUF, you can do:
 
@@ -269,9 +269,9 @@ GGUF, you can do:
     -DMLX_BUILD_GGUF=OFF \
     -DMLX_METAL_JIT=ON
 
-THE ``MLX_METAL_JIT`` flag minimizes the size of the MLX Metal library which
+THE ``MLX_METAL_JIT`` flag minimizes the size of the UMLX Metal library which
 contains pre-built GPU kernels. This substantially reduces the size of the
-Metal library by run-time compiling kernels the first time they are used in MLX
+Metal library by run-time compiling kernels the first time they are used in UMLX
 on a given machine. Note run-time compilation incurs a cold-start cost which can
 be anwywhere from a few hundred millisecond to a few seconds depending on the
 application. Once a kernel is compiled, it will be cached by the system. The

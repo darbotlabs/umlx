@@ -16,13 +16,13 @@ pip install -r requirements.txt
 
 ### Build
 
-Build the docs from `mlx/docs/`
+Build the docs from `umlx/docs/`
 
 ```
 doxygen && make html
 ```
 
-View the docs by running a server in `mlx/docs/build/html/`:
+View the docs by running a server in `umlx/docs/build/html/`:
 
 ```
 python -m http.server <port>

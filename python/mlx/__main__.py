@@ -14,7 +14,7 @@ def main() -> None:
     parser.add_argument(
         "--cmake-dir",
         action="store_true",
-        help="Print the path to the MLX CMake module directory.",
+        help="Print the path to the UMLX CMake module directory.",
     )
     args = parser.parse_args()
     if args.cmake_dir:
