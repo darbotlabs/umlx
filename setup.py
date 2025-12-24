@@ -1,0 +1,324 @@
+# Copyright © 2023 Apple Inc.
+
+import datetime
+import os
+import platform
+import re
+import subprocess
+from functools import partial
+from pathlib import Path
+
+from setuptools import Extension, find_namespace_packages, setup
+from setuptools.command.bdist_wheel import bdist_wheel
+from setuptools.command.build_ext import build_ext
+
+
+def cuda_toolkit_major_version():
+    out = subprocess.check_output(["nvcc", "--version"], stderr=subprocess.STDOUT)
+    text = out.decode()
+    m = re.search(r"release (\d+)", text)
+    if m:
+        return int(m.group(1))
+    return None
+
+
+def get_version():
+    with open("umlx/version.h", "r") as fid:
+        for l in fid:
+            if "#define UMLX_VERSION_MAJOR" in l:
+                major = l.split()[-1]
+            if "#define UMLX_VERSION_MINOR" in l:
+                minor = l.split()[-1]
+            if "#define UMLX_VERSION_PATCH" in l:
+                patch = l.split()[-1]
+    version = f"{major}.{minor}.{patch}"
+    pypi_release = int(os.environ.get("PYPI_RELEASE", 0))
+    dev_release = int(os.environ.get("DEV_RELEASE", 0))
+    if not pypi_release or dev_release:
+        today = datetime.date.today()
+        version = f"{version}.dev{today.year}{today.month:02d}{today.day:02d}"
+    if not pypi_release and not dev_release:
+        git_hash = (
+            subprocess.run(
+                "git rev-parse --short HEAD".split(),
+                capture_output=True,
+                check=True,
+            )
+            .stdout.strip()
+            .decode()
+        )
+        version = f"{version}+{git_hash}"
+
+    return version
+
+
+build_stage = int(os.environ.get("UMLX_BUILD_STAGE", 0))
+build_macos = platform.system() == "Darwin"
+build_cuda = "UMLX_BUILD_CUDA=ON" in os.environ.get("CMAKE_ARGS", "")
+
+
+# A CMakeExtension needs a sourcedir instead of a file list.
+# The name must be the _single_ output extension from the CMake build.
+# If you need multiple extensions, see scikit-build.
+class CMakeExtension(Extension):
+    def __init__(self, name: str, sourcedir: str = "") -> None:
+        super().__init__(name, sources=[])
+        self.sourcedir = os.fspath(Path(sourcedir).resolve())
+
+
+class CMakeBuild(build_ext):
+    def build_extension(self, ext: CMakeExtension) -> None:
+        # Must be in this form due to bug in .resolve() only fixed in Python 3.10+
+        ext_fullpath = Path.cwd() / self.get_ext_fullpath(ext.name)  # type: ignore[no-untyped-call]
+        extdir = ext_fullpath.parent.resolve()
+
+        debug = int(os.environ.get("DEBUG", 0)) if self.debug is None else self.debug
+        cfg = "Debug" if debug else "Release"
+
+        build_temp = Path(self.build_temp) / ext.name
+        if not build_temp.exists():
+            build_temp.mkdir(parents=True)
+
+        install_prefix = extdir
+        pybind_out_dir = extdir
+        if build_stage == 1:
+            # Don't include MLX libraries in the wheel
+            install_prefix = build_temp
+        elif build_stage == 2:
+            # Don't include Python bindings in the wheel
+            pybind_out_dir = build_temp
+        cmake_args = [
+            f"-DCMAKE_INSTALL_PREFIX={install_prefix}",
+            f"-DUMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY={pybind_out_dir}",
+            f"-DCMAKE_BUILD_TYPE={cfg}",
+            "-DUMLX_BUILD_PYTHON_BINDINGS=ON",
+            "-DUMLX_BUILD_TESTS=OFF",
+            "-DUMLX_BUILD_BENCHMARKS=OFF",
+            "-DUMLX_BUILD_EXAMPLES=OFF",
+        ]
+        if build_stage == 2 and build_cuda:
+            # Last arch is always real and virtual for forward-compatibility
+            cuda_archs = ";".join(
+                (
+                    "75-real",
+                    "80-real",
+                    "90a-real",
+                    "100a-real",
+                    "120a-real",
+                    "120-virtual",
+                )
+            )
+            cmake_args += [f"-DUMLX_CUDA_ARCHITECTURES={cuda_archs}"]
+
+        # Some generators require explcitly passing config when building.
+        build_args = ["--config", cfg]
+        # Adding CMake arguments set as environment variable
+        # (needed e.g. to build for ARM OSx on conda-forge)
+        if "CMAKE_ARGS" in os.environ:
+            cmake_args += [item for item in os.environ["CMAKE_ARGS"].split(" ") if item]
+
+        # Pass version to C++
+        cmake_args += [f"-DUMLX_VERSION={self.distribution.get_version()}"]  # type: ignore[attr-defined]
+
+        if build_macos:
+            # Cross-compile support for macOS - respect ARCHFLAGS if set
+            archs = re.findall(r"-arch (\S+)", os.environ.get("ARCHFLAGS", ""))
+            if archs:
+                cmake_args += ["-DCMAKE_OSX_ARCHITECTURES={}".format(";".join(archs))]
+        if platform.system() == "Windows":
+            # On Windows DLLs must be put in the same dir with the extension
+            # while cmake puts mlx.dll into the "bin" sub-dir. Link with mlx
+            # statically to work around it.
+            cmake_args += ["-DBUILD_SHARED_LIBS=OFF"]
+        else:
+            cmake_args += ["-DBUILD_SHARED_LIBS=ON"]
+
+        # Set CMAKE_BUILD_PARALLEL_LEVEL to control the parallel build level
+        # across all generators.
+        if "CMAKE_BUILD_PARALLEL_LEVEL" not in os.environ:
+            build_args += [f"-j{os.cpu_count()}"]
+
+        # Avoid cache miss when building from temporary dirs.
+        os.environ["CCACHE_BASEDIR"] = os.path.realpath(self.build_temp)
+        os.environ["CCACHE_NOHASHDIR"] = "true"
+
+        subprocess.run(
+            ["cmake", ext.sourcedir, *cmake_args], cwd=build_temp, check=True
+        )
+        subprocess.run(
+            ["cmake", "--build", ".", "--target", "install", *build_args],
+            cwd=build_temp,
+            check=True,
+        )
+
+    # Make sure to copy mlx.metallib for inplace builds
+    def run(self):
+        super().run()
+
+        ext = next(ext for ext in self.extensions if ext.name == "umlx.core")
+
+        # Based on https://github.com/pypa/setuptools/blob/main/setuptools/command/build_ext.py#L102
+        if self.inplace:
+            # Resolve inplace package dir
+            build_py = self.get_finalized_command("build_py")
+            inplace_file, regular_file = self._get_inplace_equivalent(build_py, ext)
+
+            inplace_dir = str(Path(inplace_file).parent.resolve())
+            regular_dir = str(Path(regular_file).parent.resolve())
+
+            self.copy_tree(regular_dir, inplace_dir)
+
+        # Build type stubs.
+        build_temp = Path(self.build_temp) / ext.name
+        subprocess.run(
+            ["cmake", "--install", build_temp, "--component", "core_stub"],
+            check=True,
+        )
+
+
+class MLXBdistWheel(bdist_wheel):
+    def get_tag(self) -> tuple[str, str, str]:
+        impl, abi, plat_name = super().get_tag()
+        if build_stage == 2:
+            impl = self.python_tag
+            abi = "none"
+        return (impl, abi, plat_name)
+
+
+# Read the content of README.md
+with open(Path(__file__).parent / "README.md", encoding="utf-8") as f:
+    long_description = f.read()
+
+
+if __name__ == "__main__":
+    package_dir = {"": "python"}
+    packages = find_namespace_packages(
+        where="python",
+        exclude=[
+            "src",
+            "tests",
+            "scripts",
+            "umlx.lib",
+            "umlx.include",
+            "umlx.share",
+            "umlx.share.**",
+            "umlx.include.**",
+        ],
+    )
+
+    version = get_version()
+
+    _setup = partial(
+        setup,
+        version=version,
+        author="UMLX Contributors",
+        author_email="contact@darbotlabs.com",
+        description="Universal MLX: A cross-platform machine learning framework for x64, ARM, Apple Silicon, Nvidia CUDA, and AMD ROCM.",
+        long_description=long_description,
+        long_description_content_type="text/markdown",
+        license="MIT",
+        url="https://github.com/darbotlabs/umlx",
+        include_package_data=True,
+        package_dir=package_dir,
+        zip_safe=False,
+        python_requires=">=3.10",
+        ext_modules=[CMakeExtension("umlx.core")],
+        cmdclass={
+            "build_ext": CMakeBuild,
+            "bdist_wheel": MLXBdistWheel,
+        },
+    )
+
+    package_data = {"umlx.core": ["*.pyi"]}
+
+    extras = {
+        "dev": [
+            "numpy>=2",
+            "pre-commit",
+            "torch>=2.9",
+            "typing_extensions",
+        ],
+        "api": [
+            "fastapi>=0.115.0",
+            "uvicorn[standard]>=0.32.0",
+            "pydantic>=2.10.0",
+        ],
+    }
+    entry_points = {
+        "console_scripts": [
+            "umlx.launch = umlx._distributed_utils.launch:main",
+            "umlx.distributed_config = umlx._distributed_utils.config:main",
+            "umlx.api = umlx.api.server:main",
+        ]
+    }
+    install_requires = []
+
+    # Release builds for PyPi are in two stages.
+    # Each stage should be run from a clean build:
+    #   python setup.py clean --all
+    #
+    # Stage 1:
+    #  - Triggered with `UMLX_BUILD_STAGE=1`
+    #  - Include everything except backend-specific binaries (e.g. libmlx.so, mlx.metallib, etc)
+    #  - Wheel has Python ABI and platform tags
+    #  - Wheel should be built for the cross-product of python version and platforms
+    #  - Package name is mlx and it depends on subpackage in stage 2 (e.g. mlx-metal)
+    # Stage 2:
+    #  - Triggered with `UMLX_BUILD_STAGE=2`
+    #  - Includes only backend-specific binaries (e.g. libmlx.so, mlx.metallib, etc)
+    #  - Wheel has only platform tags
+    #  - Wheel should be built only for different platforms
+    #  - Package name is back-end specific, e.g mlx-metal
+    if build_stage != 2:
+        if build_stage == 1:
+            install_requires.append(
+                f'umlx-metal=={version}; platform_system == "Darwin"'
+            )
+            extras["cuda"] = [f'umlx-cuda-12=={version}; platform_system == "Linux"']
+            for toolkit in [12, 13]:
+                extras[f"cuda{toolkit}"] = [
+                    f'umlx-cuda-{toolkit}=={version}; platform_system == "Linux"'
+                ]
+            extras["cpu"] = [f'umlx-cpu=={version}; platform_system == "Linux"']
+
+        _setup(
+            name="umlx",
+            packages=packages,
+            extras_require=extras,
+            entry_points=entry_points,
+            install_requires=install_requires,
+            package_data=package_data,
+        )
+    else:
+        if build_macos:
+            name = "umlx-metal"
+        elif build_cuda:
+            toolkit = cuda_toolkit_major_version()
+            name = f"umlx-cuda-{toolkit}"
+            # Note: update following files when new dependency is added:
+            # * .github/actions/build-cuda-release/action.yml
+            # * mlx/backend/cuda/CMakeLists.txt
+            if toolkit == 12:
+                install_requires += [
+                    "nvidia-cublas-cu12==12.9.*",
+                    "nvidia-cuda-nvrtc-cu12==12.9.*",
+                ]
+            elif toolkit == 13:
+                install_requires += [
+                    "nvidia-cublas",
+                    "nvidia-cuda-nvrtc",
+                ]
+            else:
+                raise ValueError(f"Unknown toolkit {toolkit}")
+            install_requires += [
+                f"nvidia-cudnn-cu{toolkit}==9.*",
+                f"nvidia-nccl-cu{toolkit}",
+            ]
+
+        else:
+            name = "umlx-cpu"
+        _setup(
+            name=name,
+            packages=["umlx"],
+            install_requires=install_requires,
+        )

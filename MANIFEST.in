@@ -1,0 +1,6 @@
+include CMakeLists.txt
+include umlx.pc.in
+recursive-include umlx/ *
+include cmake/*
+include python/src/*
+include python/umlx/py.typed # support type hinting as in PEP-561
