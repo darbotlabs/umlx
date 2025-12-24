@@ -58,6 +58,7 @@ def test_api_structure():
     print("\nTesting API structure...")
     try:
         from mlx.api import server
+        from mlx._version import __version__ as UMLX_VERSION
         
         # Check Pydantic models exist
         models = [
@@ -65,6 +66,7 @@ def test_api_structure():
             'ArrayInfo', 
             'ArrayOperation',
             'DeviceInfo',
+            'DeviceSet',
             'HealthResponse'
         ]
         
@@ -79,7 +81,7 @@ def test_api_structure():
         assert server.app.title == "UMLX API", f"Wrong app title: {server.app.title}"
         print(f"✓ App title correct: {server.app.title}")
         
-        assert server.app.version == "0.30.3", f"Wrong version: {server.app.version}"
+        assert server.app.version == UMLX_VERSION, f"Wrong version: {server.app.version} (expected {UMLX_VERSION})"
         print(f"✓ App version correct: {server.app.version}")
         
         return True

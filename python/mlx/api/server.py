@@ -27,6 +27,12 @@ except ImportError:
     MLX_AVAILABLE = False
     mx = None
 
+# Import version
+try:
+    from mlx._version import __version__ as UMLX_VERSION
+except ImportError:
+    UMLX_VERSION = "0.30.3"  # Fallback version
+
 
 # Pydantic models for request/response validation
 class ArrayCreate(BaseModel):
@@ -56,6 +62,11 @@ class DeviceInfo(BaseModel):
     default_device: str
 
 
+class DeviceSet(BaseModel):
+    """Model for setting device"""
+    device: str = Field(..., description="Device to set (cpu or gpu)")
+
+
 class HealthResponse(BaseModel):
     """Health check response"""
     status: str
@@ -67,7 +78,7 @@ class HealthResponse(BaseModel):
 app = FastAPI(
     title="UMLX API",
     description="Universal MLX REST API for cross-platform machine learning operations",
-    version="0.30.3",
+    version=UMLX_VERSION,
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -78,7 +89,7 @@ async def root():
     """Root endpoint"""
     return {
         "message": "UMLX API Server",
-        "version": "0.30.3",
+        "version": UMLX_VERSION,
         "docs": "/docs",
     }
 
@@ -99,7 +110,7 @@ async def health():
         
         return HealthResponse(
             status="healthy",
-            version="0.30.3",
+            version=UMLX_VERSION,
             devices=devices,
         )
     except Exception as e:
@@ -200,18 +211,18 @@ async def get_devices():
 
 
 @app.post("/device/set", response_model=dict)
-async def set_device(device: str):
+async def set_device(device_set: DeviceSet):
     """Set the default device"""
     if not MLX_AVAILABLE:
         raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
     
     try:
-        if device.lower() == "cpu":
+        if device_set.device.lower() == "cpu":
             mx.set_default_device(mx.cpu)
-        elif device.lower() == "gpu":
+        elif device_set.device.lower() == "gpu":
             mx.set_default_device(mx.gpu)
         else:
-            raise ValueError(f"Unknown device: {device}")
+            raise ValueError(f"Unknown device: {device_set.device}")
         
         return {
             "status": "success",
