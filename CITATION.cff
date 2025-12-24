@@ -1,10 +1,12 @@
 cff-version: 1.2.0
-title: mlx
+title: UMLX
 message: >-
   If you use this software, please cite it using the
-  metadata from this file.
+  metadata from this file. UMLX builds upon the MLX
+  framework originally developed by Apple Inc.
 type: software
 authors:
+  - name: "Darbot Labs Contributors"
   - given-names: Awni
     family-names: Hannun
     affiliation: Apple
@@ -17,8 +19,9 @@ authors:
   - given-names: Ronan
     family-names: Collobert
     affiliation: Apple
-repository-code: 'https://github.com/ml-explore'
+repository-code: 'https://github.com/darbotlabs/umlx'
 abstract: >-
-  MLX: efficient and flexible machine learning on Apple
-  silicon
+  UMLX: Universal MLX - A cross-platform machine learning 
+  framework with support for x64, ARM, Apple Silicon, 
+  Nvidia CUDA, and AMD ROCM
 license: MIT

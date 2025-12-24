@@ -1,7 +1,8 @@
-# Contributing to MLX
+# Contributing to UMLX
 
-We want to make contributing to this project as easy and transparent as
-possible.
+We want to make contributing to this project as easy and transparent as possible.
+
+UMLX builds upon Apple's MLX framework, extending it with cross-platform support and additional functionality. Contributions should maintain compatibility with the core MLX API while enabling new platform capabilities.
 
 ## Pull Requests
 
@@ -34,5 +35,5 @@ clear and has sufficient instructions to be able to reproduce the issue.
 
 ## License
 
-By contributing to MLX, you agree that your contributions will be licensed
+By contributing to UMLX, you agree that your contributions will be licensed
 under the LICENSE file in the root directory of this source tree.
