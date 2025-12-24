@@ -19,7 +19,13 @@ except ImportError:
     print("FastAPI dependencies not installed. Install with: pip install mlx[api]")
     sys.exit(1)
 
-import mlx.core as mx
+# Try to import mlx.core, but allow the module to load without it for testing
+try:
+    import mlx.core as mx
+    MLX_AVAILABLE = True
+except ImportError:
+    MLX_AVAILABLE = False
+    mx = None
 
 
 # Pydantic models for request/response validation
@@ -83,10 +89,13 @@ async def health():
     try:
         # Get available devices
         devices = []
-        try:
-            devices.append(f"cpu: {mx.default_device()}")
-        except Exception:
-            devices.append("cpu: available")
+        if MLX_AVAILABLE:
+            try:
+                devices.append(f"mlx: {mx.default_device()}")
+            except Exception:
+                devices.append("mlx: available")
+        else:
+            devices.append("mlx: not installed")
         
         return HealthResponse(
             status="healthy",
@@ -100,6 +109,9 @@ async def health():
 @app.post("/array/create", response_model=dict)
 async def create_array(array_data: ArrayCreate):
     """Create an MLX array"""
+    if not MLX_AVAILABLE:
+        raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
+    
     try:
         if array_data.dtype:
             arr = mx.array(array_data.data, dtype=getattr(mx, array_data.dtype))
@@ -119,6 +131,9 @@ async def create_array(array_data: ArrayCreate):
 @app.get("/array/info", response_model=ArrayInfo)
 async def array_info(shape: str, dtype: str = "float32"):
     """Get information about an array with given shape and dtype"""
+    if not MLX_AVAILABLE:
+        raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
+    
     try:
         shape_tuple = tuple(map(int, shape.split(",")))
         arr = mx.zeros(shape_tuple, dtype=getattr(mx, dtype))
@@ -136,6 +151,9 @@ async def array_info(shape: str, dtype: str = "float32"):
 @app.post("/array/operation", response_model=dict)
 async def array_operation(op: ArrayOperation):
     """Perform a binary operation on two arrays"""
+    if not MLX_AVAILABLE:
+        raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
+    
     try:
         arr1 = mx.array(op.array1)
         arr2 = mx.array(op.array2)
@@ -166,6 +184,9 @@ async def array_operation(op: ArrayOperation):
 @app.get("/devices", response_model=DeviceInfo)
 async def get_devices():
     """Get available device information"""
+    if not MLX_AVAILABLE:
+        raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
+    
     try:
         default = str(mx.default_device())
         device_type = default.split("(")[0] if "(" in default else default
@@ -181,6 +202,9 @@ async def get_devices():
 @app.post("/device/set", response_model=dict)
 async def set_device(device: str):
     """Set the default device"""
+    if not MLX_AVAILABLE:
+        raise HTTPException(status_code=503, detail="MLX core not available. Install mlx package.")
+    
     try:
         if device.lower() == "cpu":
             mx.set_default_device(mx.cpu)
