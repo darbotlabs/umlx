@@ -6,58 +6,90 @@ Build and Install
 Python Installation
 -------------------
 
-MLX is available on PyPI. All you have to do to use MLX with your own Apple
-silicon computer is
+UMLX is available on PyPI with support for multiple platforms.
+
+Apple Silicon (macOS)
+^^^^^^^^^^^^^^^^^^^^^
+
+For Apple Silicon Macs with Metal GPU support:
 
 .. code-block:: shell
 
     pip install mlx
 
-To install from PyPI your system must meet the following requirements:
+System requirements:
 
-- Using an M series chip (Apple silicon)
-- Using a native Python >= 3.10
+- M series chip (Apple Silicon)
+- Native Python >= 3.10
 - macOS >= 14.0
 
 .. note::
-    MLX is only available on devices running macOS >= 14.0 and higher.
+    UMLX on macOS is only available on devices running macOS >= 14.0 and higher with Apple Silicon.
 
-CUDA
-^^^^
+Nvidia CUDA (Linux)
+^^^^^^^^^^^^^^^^^^^
 
-MLX has a CUDA backend which you can install with:
+For Linux systems with Nvidia GPUs and CUDA support:
 
 .. code-block:: shell
 
     pip install mlx[cuda12]
 
+System requirements for CUDA package:
 
-To install the CUDA package from PyPi your system must meet the following
-requirements:
-
-- Nvidia architecture >= SM 7.5
+- Nvidia architecture >= SM 7.5 (Turing, Ampere, Ada Lovelace, Hopper, Blackwell)
 - Nvidia driver >= 550.54.14
-- CUDA toolkit >= 12.0
+- CUDA Toolkit >= 12.0
 - Linux distribution with glibc >= 2.35
 - Python >= 3.10
 
 For CUDA 13 use ``pip install mlx[cuda13]``. The CUDA 13 package requires
 an Nvidia driver >= 580 or an appropriate CUDA compatibility package.
 
-CPU-only (Linux)
+**DGX Spark Containers**: UMLX supports DGX Spark specific containers with 
+Nvidia Workbench and optimizations. See the DGX configuration guide for details.
+
+AMD ROCM (Linux)
 ^^^^^^^^^^^^^^^^
 
-For a CPU-only version of MLX that runs on Linux use:
+For AMD GPUs with ROCM support (coming soon):
+
+.. code-block:: shell
+
+    pip install mlx[rocm]
+
+UMLX supports AMD's unified memory architecture including configurations with
+x64 + 128GB unified memory + NPU.
+
+CPU-only (x64/ARM Linux)
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+For a CPU-only version of UMLX on x64 or ARM processors:
 
 .. code-block:: shell
 
     pip install mlx[cpu]
 
-To install the CPU-only package from PyPi your system must meet the following
-requirements:
+System requirements:
 
 - Linux distribution with glibc >= 2.35
 - Python >= 3.10
+- x64 or ARM64 processor
+
+**ARM Support**: UMLX extends support beyond x86_64 to include ARM processors.
+
+**AMD Threadripper**: Optimized for high-core-count CPU configurations.
+
+FastAPI Integration
+^^^^^^^^^^^^^^^^^^^
+
+To use the UMLX REST API, install with API dependencies:
+
+.. code-block:: shell
+
+    pip install mlx[api]
+
+This enables the FastAPI server for remote access to UMLX functionality on port 1023.
 
 
 Troubleshooting
@@ -66,15 +98,20 @@ Troubleshooting
 *My OS and Python versions are in the required range but pip still does not find
 a matching distribution.*
 
-Probably you are using a non-native Python. The output of
+For Apple Silicon: Verify you are using a native Python. The output of
 
 .. code-block:: shell
 
   python -c "import platform; print(platform.processor())"
 
 should be ``arm``. If it is ``i386`` (and you have M series machine) then you
-are using a non-native Python. Switch your Python to a native Python. A good
-way to do this is with `Conda <https://stackoverflow.com/q/65415996>`_.
+are using a non-native Python. Switch to a native Python using `Conda <https://stackoverflow.com/q/65415996>`_.
+
+For Linux: Ensure your glibc version meets requirements:
+
+.. code-block:: shell
+
+  ldd --version
 
 
 Build from source
