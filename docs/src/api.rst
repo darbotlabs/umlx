@@ -16,19 +16,19 @@ Start the API server using the command line:
 
 .. code-block:: shell
 
-    python -m mlx.api.server
+    python -m umlx.api.server
 
 Or using the installed entry point:
 
 .. code-block:: shell
 
-    mlx.api
+    umlx.api
 
 With custom configuration:
 
 .. code-block:: shell
 
-    mlx.api --host 0.0.0.0 --port 1023 --reload
+    umlx.api --host 0.0.0.0 --port 1023 --reload
 
 Python
 ^^^^^^
@@ -37,7 +37,7 @@ Start the server programmatically:
 
 .. code-block:: python
 
-    from mlx.api import start_server
+    from umlx.api import start_server
     
     start_server(host="0.0.0.0", port=1023)
 
@@ -75,7 +75,7 @@ Array Operations
 Create Array
 """"""""""""
 
-Create a new MLX array.
+Create a new UMLX array.
 
 **POST** ``/array/create``
 
@@ -249,7 +249,7 @@ The default port is 1023. To use a different port:
 
 .. code-block:: shell
 
-    mlx.api --port 8080
+    umlx.api --port 8080
 
 Host Binding
 ^^^^^^^^^^^^
@@ -258,7 +258,7 @@ By default, the server binds to ``0.0.0.0`` (all interfaces). To bind to localho
 
 .. code-block:: shell
 
-    mlx.api --host 127.0.0.1
+    umlx.api --host 127.0.0.1
 
 Development Mode
 ^^^^^^^^^^^^^^^^
@@ -267,7 +267,7 @@ Enable auto-reload for development:
 
 .. code-block:: shell
 
-    mlx.api --reload
+    umlx.api --reload
 
 Security Considerations
 -----------------------
@@ -282,6 +282,6 @@ Performance
 -----------
 
 - The API uses async/await for concurrent request handling
-- Array operations are performed using MLX's efficient backend
+- Array operations are performed using UMLX's efficient backend
 - Consider the network overhead for large array transfers
 - Use batch operations where possible for better performance

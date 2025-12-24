@@ -28,7 +28,7 @@ Apple Silicon (Metal)
 
 .. code-block:: shell
 
-    pip install mlx
+    pip install umlx
 
 **Best For**: Development, inference, and training on Mac workstations
 
@@ -60,10 +60,10 @@ Supported architectures:
 .. code-block:: shell
 
     # CUDA 12
-    pip install mlx[cuda12]
+    pip install umlx[cuda12]
     
     # CUDA 13
-    pip install mlx[cuda13]
+    pip install umlx[cuda13]
 
 **DGX Spark Containers**:
 
@@ -103,7 +103,7 @@ AMD ROCM
 
 .. code-block:: shell
 
-    pip install mlx[rocm]
+    pip install umlx[rocm]
 
 **Best For**: AMD GPU workflows, unified memory architectures, NPU acceleration
 
@@ -132,7 +132,7 @@ x64 CPUs
 
 .. code-block:: shell
 
-    pip install mlx[cpu]
+    pip install umlx[cpu]
 
 **Best For**: CPU-only deployments, development, high-RAM requirements
 
@@ -162,7 +162,7 @@ ARM Processors
 
 .. code-block:: shell
 
-    pip install mlx[cpu]
+    pip install umlx[cpu]
 
 **Best For**: ARM servers, edge deployment, energy-efficient computing
 
@@ -177,7 +177,7 @@ Nvidia RTX 4090 development machine:
 .. code-block:: shell
 
     # Install CUDA support
-    pip install mlx[cuda12]
+    pip install umlx[cuda12]
     
     # Verify GPU detection
     python -c "import mlx.core as mx; print(mx.metal.is_available())"
@@ -206,7 +206,7 @@ AMD configuration with unified memory and NPU (Coming Soon):
 .. code-block:: shell
 
     # Install ROCM support
-    pip install mlx[rocm]
+    pip install umlx[rocm]
     
     # Configure unified memory
     export HSA_XNACK=1
@@ -219,7 +219,7 @@ AMD Threadripper with 128GB RAM:
 .. code-block:: shell
 
     # Install CPU-only version
-    pip install mlx[cpu]
+    pip install umlx[cpu]
     
     # Configure thread count
     export OMP_NUM_THREADS=32
