@@ -2,7 +2,7 @@ import argparse
 import math
 import time
 
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 import torch
 

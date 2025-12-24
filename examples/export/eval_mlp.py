@@ -1,8 +1,8 @@
 # Copyright © 2024 Apple Inc.
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx.utils
+import umlx.core as mx
+import umlx.nn as nn
+import umlx.utils
 
 
 class MLP(nn.Module):
@@ -42,10 +42,10 @@ if __name__ == "__main__":
     mx.random.seed(42)  # Seed for input
     example_x = mx.random.uniform(shape=(batch_size, input_dim))
 
-    mx.export_function("eval_mlp.mlxfn", forward, example_x)
+    mx.export_function("eval_mlp.umlxfn", forward, example_x)
 
     # Import in Python
-    imported_forward = mx.import_function("eval_mlp.mlxfn")
+    imported_forward = mx.import_function("eval_mlp.umlxfn")
     expected = forward(example_x)
     (out,) = imported_forward(example_x)
     assert mx.allclose(expected, out)

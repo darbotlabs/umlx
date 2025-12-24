@@ -3,7 +3,7 @@
 Lazy Evaluation
 ===============
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 Why Lazy Evaluation
 -------------------
@@ -47,7 +47,7 @@ that has some cost associated to it.
 
 Similarly, lazy evaluation can be beneficial for saving memory while keeping
 code simple. Say you have a very large model ``Model`` derived from
-:obj:`mlx.nn.Module`. You can instantiate this model with ``model = Model()``.
+:obj:`umlx.nn.Module`. You can instantiate this model with ``model = Model()``.
 Typically, this will initialize all of the weights as ``float32``, but the
 initialization does not actually compute anything until you perform an
 :func:`eval`. If you update the model with ``float16`` weights, your maximum

@@ -2,11 +2,11 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-# Don't inherit from MLXTestCase to avoid call to setUp
+# Don't inherit from UMLXTestCase to avoid call to setUp
 class TestDefaultDevice(unittest.TestCase):
     def test_mlx_default_device(self):
         device = mx.default_device()
@@ -21,7 +21,7 @@ class TestDefaultDevice(unittest.TestCase):
                 mx.set_default_device(mx.gpu)
 
 
-class TestDevice(mlx_tests.MLXTestCase):
+class TestDevice(umlx_tests.UMLXTestCase):
     def test_device(self):
         device = mx.default_device()
 
@@ -64,7 +64,7 @@ class TestDevice(mlx_tests.MLXTestCase):
             self.assertEqual(a.item(), b.item())
 
 
-class TestStream(mlx_tests.MLXTestCase):
+class TestStream(umlx_tests.UMLXTestCase):
     def test_stream(self):
         s1 = mx.default_stream(mx.default_device())
         self.assertEqual(s1.device, mx.default_device())
@@ -114,4 +114,4 @@ class TestStream(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

@@ -2,9 +2,9 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test type promotion") {
   for (auto t : {bool_, uint32, int32, int64, float32}) {

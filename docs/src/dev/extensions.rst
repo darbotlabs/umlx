@@ -14,7 +14,7 @@ You can do that in MLX directly:
 
 .. code-block:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
 
     def simple_axpby(x: mx.array, y: mx.array, alpha: float, beta: float) -> mx.array:
         return alpha * x + beta * y
@@ -547,7 +547,7 @@ Binding to Python
 ^^^^^^^^^^^^^^^^^^
 
 We use nanobind_ to build a Python API for the C++ library. Since bindings for
-components such as :class:`mlx.core.array`, :class:`mlx.core.stream`, etc. are
+components such as :class:`umlx.core.array`, :class:`umlx.core.stream`, etc. are
 already provided, adding our :meth:`axpby` is simple.
 
 .. code-block:: C++
@@ -587,10 +587,10 @@ whistles such as the literal names and doc-strings.
 
 .. warning::
 
-    :mod:`mlx.core` must be imported before importing
+    :mod:`umlx.core` must be imported before importing
     :mod:`mlx_sample_extensions` as defined by the nanobind module above to
-    ensure that the casters for :mod:`mlx.core` components like
-    :class:`mlx.core.array` are available.
+    ensure that the casters for :mod:`umlx.core` components like
+    :class:`umlx.core.array` are available.
 
 .. _Building with CMake:
 
@@ -667,7 +667,7 @@ Building with ``setuptools``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Once we have set out the CMake build rules as described above, we can use the
-build utilities defined in :mod:`mlx.extension`:
+build utilities defined in :mod:`umlx.extension`:
 
 .. code-block:: python
 
@@ -692,7 +692,7 @@ build utilities defined in :mod:`mlx.extension`:
     We treat ``extensions/mlx_sample_extensions`` as the package directory
     even though it only contains a ``__init__.py`` to ensure the following:
 
-    * :mod:`mlx.core` must be imported before importing :mod:`_ext`
+    * :mod:`umlx.core` must be imported before importing :mod:`_ext`
     * The C++ extension library and the metal library are co-located with the python
       bindings and copied together if the package is installed
 
@@ -726,7 +726,7 @@ Let's look at a simple script and its results:
 
 .. code-block:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
     from mlx_sample_extensions import axpby
 
     a = mx.ones((3, 4))
@@ -753,7 +753,7 @@ with the naive :meth:`simple_axpby` we first defined.
 
 .. code-block:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
     from mlx_sample_extensions import axpby
     import time
 
@@ -793,7 +793,7 @@ The results are ``Simple axpby: 1.559 ms | Custom axpby: 0.774 ms``. We see
 modest improvements right away!
 
 This operation is now good to be used to build other operations, in
-:class:`mlx.nn.Module` calls, and also as a part of graph transformations like
+:class:`umlx.nn.Module` calls, and also as a part of graph transformations like
 :meth:`grad`.
 
 Scripts

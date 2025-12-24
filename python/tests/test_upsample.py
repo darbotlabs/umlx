@@ -2,9 +2,9 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx_tests
 import numpy as np
 
 try:
@@ -16,7 +16,7 @@ except ImportError as e:
     has_torch = False
 
 
-class TestUpsample(mlx_tests.MLXTestCase):
+class TestUpsample(umlx_tests.UMLXTestCase):
     @unittest.skipIf(not has_torch, "requires Torch")
     def test_torch_upsample(self):
         def run_upsample(
@@ -97,4 +97,4 @@ class TestUpsample(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

@@ -2,11 +2,11 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestMemory(mlx_tests.MLXTestCase):
+class TestMemory(umlx_tests.UMLXTestCase):
     def test_memory_info(self):
         old_limit = mx.set_cache_limit(0)
 
@@ -74,4 +74,4 @@ class TestMemory(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

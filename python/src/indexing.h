@@ -4,10 +4,10 @@
 
 #include <nanobind/nanobind.h>
 
-#include "mlx/array.h"
+#include "umlx/array.h"
 #include "python/src/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 mx::array mlx_get_item(const mx::array& src, const nb::object& obj);

@@ -4,8 +4,8 @@ import math
 import unittest
 from itertools import permutations
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 try:
@@ -17,7 +17,7 @@ except ImportError as e:
     has_torch = False
 
 
-class TestConv(mlx_tests.MLXTestCase):
+class TestConv(umlx_tests.UMLXTestCase):
     def test_numpy_conv(self):
         for dtype in (
             "float16",
@@ -1195,4 +1195,4 @@ class TestConv(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

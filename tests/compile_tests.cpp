@@ -5,10 +5,10 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/mlx.h"
-#include "mlx/primitives.h"
+#include "umlx/umlx.h"
+#include "umlx/primitives.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 std::vector<array> simple_fun(const std::vector<array>& inputs) {
   return std::vector<array>{inputs[0] + inputs[1]};

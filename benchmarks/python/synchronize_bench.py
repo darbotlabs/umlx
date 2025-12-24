@@ -1,6 +1,6 @@
 import time
 
-import mlx.core as mx
+import umlx.core as mx
 
 rank = mx.distributed.init().rank()
 

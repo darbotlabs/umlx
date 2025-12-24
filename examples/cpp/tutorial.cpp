@@ -3,9 +3,9 @@
 #include <cassert>
 #include <iostream>
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 void array_basics() {
   // Make a scalar array:

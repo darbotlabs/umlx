@@ -23,13 +23,13 @@ def cuda_toolkit_major_version():
 
 
 def get_version():
-    with open("mlx/version.h", "r") as fid:
+    with open("umlx/version.h", "r") as fid:
         for l in fid:
-            if "#define MLX_VERSION_MAJOR" in l:
+            if "#define UMLX_VERSION_MAJOR" in l:
                 major = l.split()[-1]
-            if "#define MLX_VERSION_MINOR" in l:
+            if "#define UMLX_VERSION_MINOR" in l:
                 minor = l.split()[-1]
-            if "#define MLX_VERSION_PATCH" in l:
+            if "#define UMLX_VERSION_PATCH" in l:
                 patch = l.split()[-1]
     version = f"{major}.{minor}.{patch}"
     pypi_release = int(os.environ.get("PYPI_RELEASE", 0))
@@ -52,9 +52,9 @@ def get_version():
     return version
 
 
-build_stage = int(os.environ.get("MLX_BUILD_STAGE", 0))
+build_stage = int(os.environ.get("UMLX_BUILD_STAGE", 0))
 build_macos = platform.system() == "Darwin"
-build_cuda = "MLX_BUILD_CUDA=ON" in os.environ.get("CMAKE_ARGS", "")
+build_cuda = "UMLX_BUILD_CUDA=ON" in os.environ.get("CMAKE_ARGS", "")
 
 
 # A CMakeExtension needs a sourcedir instead of a file list.
@@ -89,12 +89,12 @@ class CMakeBuild(build_ext):
             pybind_out_dir = build_temp
         cmake_args = [
             f"-DCMAKE_INSTALL_PREFIX={install_prefix}",
-            f"-DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY={pybind_out_dir}",
+            f"-DUMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY={pybind_out_dir}",
             f"-DCMAKE_BUILD_TYPE={cfg}",
-            "-DMLX_BUILD_PYTHON_BINDINGS=ON",
-            "-DMLX_BUILD_TESTS=OFF",
-            "-DMLX_BUILD_BENCHMARKS=OFF",
-            "-DMLX_BUILD_EXAMPLES=OFF",
+            "-DUMLX_BUILD_PYTHON_BINDINGS=ON",
+            "-DUMLX_BUILD_TESTS=OFF",
+            "-DUMLX_BUILD_BENCHMARKS=OFF",
+            "-DUMLX_BUILD_EXAMPLES=OFF",
         ]
         if build_stage == 2 and build_cuda:
             # Last arch is always real and virtual for forward-compatibility
@@ -108,7 +108,7 @@ class CMakeBuild(build_ext):
                     "120-virtual",
                 )
             )
-            cmake_args += [f"-DMLX_CUDA_ARCHITECTURES={cuda_archs}"]
+            cmake_args += [f"-DUMLX_CUDA_ARCHITECTURES={cuda_archs}"]
 
         # Some generators require explcitly passing config when building.
         build_args = ["--config", cfg]
@@ -118,7 +118,7 @@ class CMakeBuild(build_ext):
             cmake_args += [item for item in os.environ["CMAKE_ARGS"].split(" ") if item]
 
         # Pass version to C++
-        cmake_args += [f"-DMLX_VERSION={self.distribution.get_version()}"]  # type: ignore[attr-defined]
+        cmake_args += [f"-DUMLX_VERSION={self.distribution.get_version()}"]  # type: ignore[attr-defined]
 
         if build_macos:
             # Cross-compile support for macOS - respect ARCHFLAGS if set
@@ -155,7 +155,7 @@ class CMakeBuild(build_ext):
     def run(self):
         super().run()
 
-        ext = next(ext for ext in self.extensions if ext.name == "mlx.core")
+        ext = next(ext for ext in self.extensions if ext.name == "umlx.core")
 
         # Based on https://github.com/pypa/setuptools/blob/main/setuptools/command/build_ext.py#L102
         if self.inplace:
@@ -198,11 +198,11 @@ if __name__ == "__main__":
             "src",
             "tests",
             "scripts",
-            "mlx.lib",
-            "mlx.include",
-            "mlx.share",
-            "mlx.share.**",
-            "mlx.include.**",
+            "umlx.lib",
+            "umlx.include",
+            "umlx.share",
+            "umlx.share.**",
+            "umlx.include.**",
         ],
     )
 
@@ -222,14 +222,14 @@ if __name__ == "__main__":
         package_dir=package_dir,
         zip_safe=False,
         python_requires=">=3.10",
-        ext_modules=[CMakeExtension("mlx.core")],
+        ext_modules=[CMakeExtension("umlx.core")],
         cmdclass={
             "build_ext": CMakeBuild,
             "bdist_wheel": MLXBdistWheel,
         },
     )
 
-    package_data = {"mlx.core": ["*.pyi"]}
+    package_data = {"umlx.core": ["*.pyi"]}
 
     extras = {
         "dev": [
@@ -246,9 +246,9 @@ if __name__ == "__main__":
     }
     entry_points = {
         "console_scripts": [
-            "umlx.launch = mlx._distributed_utils.launch:main",
-            "umlx.distributed_config = mlx._distributed_utils.config:main",
-            "umlx.api = mlx.api.server:main",
+            "umlx.launch = umlx._distributed_utils.launch:main",
+            "umlx.distributed_config = umlx._distributed_utils.config:main",
+            "umlx.api = umlx.api.server:main",
         ]
     }
     install_requires = []
@@ -258,13 +258,13 @@ if __name__ == "__main__":
     #   python setup.py clean --all
     #
     # Stage 1:
-    #  - Triggered with `MLX_BUILD_STAGE=1`
+    #  - Triggered with `UMLX_BUILD_STAGE=1`
     #  - Include everything except backend-specific binaries (e.g. libmlx.so, mlx.metallib, etc)
     #  - Wheel has Python ABI and platform tags
     #  - Wheel should be built for the cross-product of python version and platforms
     #  - Package name is mlx and it depends on subpackage in stage 2 (e.g. mlx-metal)
     # Stage 2:
-    #  - Triggered with `MLX_BUILD_STAGE=2`
+    #  - Triggered with `UMLX_BUILD_STAGE=2`
     #  - Includes only backend-specific binaries (e.g. libmlx.so, mlx.metallib, etc)
     #  - Wheel has only platform tags
     #  - Wheel should be built only for different platforms
@@ -319,6 +319,6 @@ if __name__ == "__main__":
             name = "umlx-cpu"
         _setup(
             name=name,
-            packages=["mlx"],
+            packages=["umlx"],
             install_requires=install_requires,
         )

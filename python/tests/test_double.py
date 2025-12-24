@@ -4,12 +4,12 @@ import math
 import os
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestDouble(mlx_tests.MLXTestCase):
+class TestDouble(umlx_tests.UMLXTestCase):
     def test_unary_ops(self):
         shape = (3, 3)
         x = mx.random.normal(shape=shape)
@@ -174,7 +174,7 @@ class TestDouble(mlx_tests.MLXTestCase):
         )
 
     def test_type_promotion(self):
-        import mlx.core as mx
+        import umlx.core as mx
 
         a = mx.array([4, 8], mx.float64)
         b = mx.array([4, 8], mx.int32)
@@ -294,4 +294,4 @@ class TestDouble(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

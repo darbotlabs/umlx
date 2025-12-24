@@ -12,14 +12,14 @@
 #include <nanobind/stl/variant.h>
 #include <nanobind/stl/vector.h>
 
-#include "mlx/einsum.h"
-#include "mlx/ops.h"
-#include "mlx/utils.h"
+#include "umlx/einsum.h"
+#include "umlx/ops.h"
+#include "umlx/utils.h"
 #include "python/src/load.h"
 #include "python/src/small_vector.h"
 #include "python/src/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

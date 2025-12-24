@@ -4,10 +4,10 @@
 #include <iostream>
 #include <sstream>
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 #include "time_utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 void time_irregular_binary_ops_1D() {
   auto device = mx::default_device();

@@ -4,8 +4,8 @@ import math
 import unittest
 from itertools import permutations
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 try:
@@ -17,7 +17,7 @@ except ImportError as e:
     has_torch = False
 
 
-class TestConvTranspose(mlx_tests.MLXTestCase):
+class TestConvTranspose(umlx_tests.UMLXTestCase):
     @unittest.skipIf(not has_torch, "requires Torch")
     def test_torch_conv_transpose_1D(self):
         def run_conv_transpose_1D(
@@ -807,4 +807,4 @@ class TestConvTranspose(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

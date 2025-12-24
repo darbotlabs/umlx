@@ -4,8 +4,8 @@ import math
 import unittest
 from itertools import permutations
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 try:
@@ -16,7 +16,7 @@ except ImportError as e:
     has_torch = False
 
 
-class TestBF16(mlx_tests.MLXTestCase):
+class TestBF16(umlx_tests.UMLXTestCase):
     def __test_ops(
         self,
         ref_op,  # Function that outputs array_like
@@ -193,4 +193,4 @@ class TestBF16(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

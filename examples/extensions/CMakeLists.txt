@@ -21,9 +21,9 @@ execute_process(
 find_package(nanobind CONFIG REQUIRED)
 
 execute_process(
-  COMMAND "${Python_EXECUTABLE}" -m mlx --cmake-dir
+  COMMAND "${Python_EXECUTABLE}" -m umlx --cmake-dir
   OUTPUT_STRIP_TRAILING_WHITESPACE
-  OUTPUT_VARIABLE MLX_ROOT)
+  OUTPUT_VARIABLE UMLX_ROOT)
 find_package(MLX CONFIG REQUIRED)
 
 # ----------------------------- Extensions -----------------------------
@@ -37,13 +37,13 @@ target_sources(mlx_ext PUBLIC ${CMAKE_CURRENT_LIST_DIR}/axpby/axpby.cpp)
 # Add include headers
 target_include_directories(mlx_ext PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 
-# Link to mlx
-target_link_libraries(mlx_ext PUBLIC mlx)
+# Link to umlx
+target_link_libraries(mlx_ext PUBLIC umlx)
 
 # ----------------------------- Metal -----------------------------
 
 # Build metallib
-if(MLX_BUILD_METAL)
+if(UMLX_BUILD_METAL)
   mlx_build_metallib(
     TARGET
     mlx_ext_metallib
@@ -53,7 +53,7 @@ if(MLX_BUILD_METAL)
     ${CMAKE_CURRENT_LIST_DIR}/axpby/axpby.metal
     INCLUDE_DIRS
     ${PROJECT_SOURCE_DIR}
-    ${MLX_INCLUDE_DIRS}
+    ${UMLX_INCLUDE_DIRS}
     OUTPUT_DIRECTORY
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
@@ -69,7 +69,7 @@ nanobind_add_module(
   LTO
   NOMINSIZE
   NB_DOMAIN
-  mlx
+  umlx
   ${CMAKE_CURRENT_LIST_DIR}/bindings.cpp)
 target_link_libraries(_ext PRIVATE mlx_ext)
 

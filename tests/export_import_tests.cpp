@@ -6,10 +6,10 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/export.h"
-#include "mlx/mlx.h"
+#include "umlx/export.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 namespace {
 std::string get_temp_file(const std::string& name) {

@@ -11,16 +11,16 @@
 #include <nanobind/stl/vector.h>
 #include <nanobind/typing.h>
 
-#include "mlx/backend/metal/metal.h"
+#include "umlx/backend/metal/metal.h"
 #include "python/src/buffer.h"
 #include "python/src/convert.h"
 #include "python/src/indexing.h"
 #include "python/src/small_vector.h"
 #include "python/src/utils.h"
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

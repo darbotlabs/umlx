@@ -6,11 +6,11 @@
 #include <nanobind/stl/vector.h>
 #include <numeric>
 
-#include "mlx/fft.h"
-#include "mlx/ops.h"
+#include "umlx/fft.h"
+#include "umlx/ops.h"
 #include "python/src/small_vector.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

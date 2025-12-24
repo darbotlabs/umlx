@@ -1,7 +1,7 @@
 Metal Debugger
 ==============
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 Profiling is a key step for performance optimization. You can build MLX with
 the ``MLX_METAL_DEBUG`` option to improve the Metal debugging and
@@ -24,7 +24,7 @@ work.
 
 .. code-block:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
 
     a = mx.random.uniform(shape=(512, 512))
     b = mx.random.uniform(shape=(512, 512))

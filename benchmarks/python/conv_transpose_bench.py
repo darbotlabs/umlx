@@ -4,7 +4,7 @@ import os
 import subprocess
 import time
 
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 import torch
 

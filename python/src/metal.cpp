@@ -8,11 +8,11 @@
 #include <nanobind/stl/variant.h>
 #include <nanobind/stl/vector.h>
 
-#include "mlx/backend/metal/metal.h"
-#include "mlx/memory.h"
+#include "umlx/backend/metal/metal.h"
+#include "umlx/memory.h"
 #include "python/src/small_vector.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

@@ -2,10 +2,10 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/mlx.h"
-#include "mlx/primitives.h"
+#include "umlx/umlx.h"
+#include "umlx/primitives.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 void test_arg_reduce_small(
     Device d,

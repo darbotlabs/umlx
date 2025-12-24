@@ -3,7 +3,7 @@
 FFT
 ===
 
-.. currentmodule:: mlx.core.fft
+.. currentmodule:: umlx.core.fft
 
 .. autosummary:: 
   :toctree: _autosummary

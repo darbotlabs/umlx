@@ -3,7 +3,7 @@
 Unified Memory
 ==============
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 Apple silicon has a unified memory architecture. The CPU and GPU have direct
 access to the same memory pool. MLX is designed to take advantage of that.

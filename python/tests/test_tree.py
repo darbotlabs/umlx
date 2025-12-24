@@ -2,13 +2,13 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx.utils
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx.utils
+import umlx_tests
 
 
-class TestTreeUtils(mlx_tests.MLXTestCase):
+class TestTreeUtils(umlx_tests.UMLXTestCase):
     def test_tree_map(self):
         tree = {"a": 0, "b": 1, "c": 2}
         tree = mlx.utils.tree_map(lambda x: x + 1, tree)
@@ -93,4 +93,4 @@ class TestTreeUtils(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

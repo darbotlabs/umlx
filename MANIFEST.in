@@ -1,6 +1,6 @@
 include CMakeLists.txt
-include mlx.pc.in
-recursive-include mlx/ *
+include umlx.pc.in
+recursive-include umlx/ *
 include cmake/*
 include python/src/*
-include python/mlx/py.typed # support type hinting as in PEP-561
+include python/umlx/py.typed # support type hinting as in PEP-561

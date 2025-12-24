@@ -1,7 +1,7 @@
 Optimizer
 =========
 
-.. currentmodule:: mlx.optimizers
+.. currentmodule:: umlx.optimizers
 
 .. autoclass:: Optimizer 
 

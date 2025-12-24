@@ -5,13 +5,13 @@ Quick Start Guide
 Basics
 ------
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
-Import ``mlx.core`` and make an :class:`array`:
+Import ``umlx.core`` and make an :class:`array`:
 
 .. code-block:: python
 
-  >> import mlx.core as mx
+  >> import umlx.core as mx
   >> a = mx.array([1, 2, 3, 4])
   >> a.shape
   [4]

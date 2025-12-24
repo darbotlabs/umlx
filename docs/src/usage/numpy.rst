@@ -12,7 +12,7 @@ Let's convert an array to NumPy and back.
 
 .. code-block:: python
 
-  import mlx.core as mx
+  import umlx.core as mx
   import numpy as np
 
   a = mx.arange(3)
@@ -85,7 +85,7 @@ PyTorch supports the buffer protocol, but it requires an explicit
 
 .. code-block:: python
 
-  import mlx.core as mx
+  import umlx.core as mx
   import torch
 
   a = mx.arange(3)
@@ -101,7 +101,7 @@ JAX fully supports the buffer protocol.
 
 .. code-block:: python
 
-  import mlx.core as mx
+  import umlx.core as mx
   import jax.numpy as jnp
 
   a = mx.arange(3)
@@ -116,7 +116,7 @@ TensorFlow supports the buffer protocol, but it requires an explicit
 
 .. code-block:: python
 
-  import mlx.core as mx
+  import umlx.core as mx
   import tensorflow as tf
 
   a = mx.arange(3)

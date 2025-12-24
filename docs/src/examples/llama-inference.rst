@@ -9,7 +9,7 @@ is defined in less than 200 lines of python.
 Implementing the model
 ----------------------
 
-We will use the neural network building blocks defined in the :mod:`mlx.nn`
+We will use the neural network building blocks defined in the :mod:`umlx.nn`
 module to concisely define the model architecture. 
 
 Attention layer
@@ -20,13 +20,13 @@ positional encoding. [1]_ In addition, our attention layer will optionally use a
 key/value cache that will be concatenated with the provided keys and values to
 support efficient inference.
 
-Our implementation uses :class:`mlx.nn.Linear` for all the projections and
-:class:`mlx.nn.RoPE` for the positional encoding.
+Our implementation uses :class:`umlx.nn.Linear` for all the projections and
+:class:`umlx.nn.RoPE` for the positional encoding.
 
 .. code-block:: python
 
-    import mlx.core as mx
-    import mlx.nn as nn
+    import umlx.core as mx
+    import umlx.nn as nn
 
     class LlamaAttention(nn.Module):
         def __init__(self, dims: int, num_heads: int):
@@ -81,7 +81,7 @@ Encoder layer
 
 The other component of the Llama model is the encoder layer which uses RMS
 normalization [2]_ and SwiGLU. [3]_ For RMS normalization we will use
-:class:`mlx.nn.RMSNorm` that is already provided in :mod:`mlx.nn`.
+:class:`umlx.nn.RMSNorm` that is already provided in :mod:`umlx.nn`.
 
 .. code-block:: python
 
@@ -116,7 +116,7 @@ Full model
 ^^^^^^^^^^
 
 To implement any Llama model we simply have to combine ``LlamaEncoderLayer``
-instances with an :class:`mlx.nn.Embedding` to embed the input tokens.
+instances with an :class:`umlx.nn.Embedding` to embed the input tokens.
 
 .. code-block:: python
 
@@ -299,7 +299,7 @@ Weight loading and benchmarking
 
 After converting the weights to be compatible to our implementation, all that is
 left is to load them from disk and we can finally use the LLM to generate text.
-We can load numpy format files using the :func:`mlx.core.load` operation.
+We can load numpy format files using the :func:`umlx.core.load` operation.
 
 To create a parameter dictionary from the key/value representation of NPZ files
 we will use the :func:`mlx.utils.tree_unflatten` helper method as follows:
@@ -310,7 +310,7 @@ we will use the :func:`mlx.utils.tree_unflatten` helper method as follows:
 
     model.update(tree_unflatten(list(mx.load(weight_file).items())))
 
-:meth:`mlx.utils.tree_unflatten` will take keys from the NPZ file that look
+:meth:`umlx.utils.tree_unflatten` will take keys from the NPZ file that look
 like ``layers.2.attention.query_proj.weight`` and will transform them to
 
 .. code-block:: python

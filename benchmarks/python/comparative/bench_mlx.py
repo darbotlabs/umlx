@@ -6,8 +6,8 @@ import os
 import time
 from functools import partial
 
-import mlx.core as mx
-import mlx.nn as nn
+import umlx.core as mx
+import umlx.nn as nn
 
 
 def int_or_list(x):

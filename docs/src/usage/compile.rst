@@ -3,7 +3,7 @@
 Compilation
 ===========
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 UMLX has a :func:`compile` function transformation which compiles computation
 graphs. Function compilation results in smaller graphs by merging common work
@@ -90,7 +90,7 @@ function in a loop:
 Example Speedup
 ---------------
 
-The :func:`mlx.nn.gelu` is a nonlinear activation function commonly used with
+The :func:`umlx.nn.gelu` is a nonlinear activation function commonly used with
 Transformer-based models. The implementation involves several unary and binary
 element-wise operations:
 
@@ -233,7 +233,7 @@ In some cases returning updated state can be pretty inconvenient. Hence,
 
 This is particularly useful for compiling a function which includes an update
 to a container of arrays, as is commonly done when training the parameters of a
-:class:`mlx.nn.Module`.
+:class:`umlx.nn.Module`.
 
 Compiled functions will also treat any inputs not in the parameter list as
 constants. For example:
@@ -303,17 +303,17 @@ Compiling Training Graphs
 -------------------------
 
 This section will step through how to use :func:`compile` with a simple example
-of a common setup: training a model with :obj:`mlx.nn.Module` using an
-:obj:`mlx.optimizers.Optimizer` with state. We will show how to compile the
+of a common setup: training a model with :obj:`umlx.nn.Module` using an
+:obj:`umlx.optimizers.Optimizer` with state. We will show how to compile the
 full forward, backward, and update with :func:`compile`.
 
 To start, here is the simple example without any compilation:
 
 .. code-block:: python
 
-  import mlx.core as mx
-  import mlx.nn as nn
-  import mlx.optimizers as optim
+  import umlx.core as mx
+  import umlx.nn as nn
+  import umlx.optimizers as optim
 
   # 4 examples with 10 features each
   x = mx.random.uniform(shape=(4, 10))
@@ -344,9 +344,9 @@ appropriate input and output captures. Here's the same example but compiled:
 
 .. code-block:: python
 
-  import mlx.core as mx
-  import mlx.nn as nn
-  import mlx.optimizers as optim
+  import umlx.core as mx
+  import umlx.nn as nn
+  import umlx.optimizers as optim
   from functools import partial
 
   # 4 examples with 10 features each
@@ -386,7 +386,7 @@ appropriate input and output captures. Here's the same example but compiled:
 .. note::
 
   If you are using a module which performs random sampling such as
-  :func:`mlx.nn.Dropout`, make sure you also include ``mx.random.state`` in the
+  :func:`umlx.nn.Dropout`, make sure you also include ``mx.random.state`` in the
   ``state`` captured by :func:`compile`, i.e. ``state = [model.state,
   optimizer.state, mx.random.state]``.
 

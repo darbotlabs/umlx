@@ -18,7 +18,7 @@ def test_api_imports():
     """Test that API modules can be imported"""
     print("Testing API imports...")
     try:
-        from mlx.api import server
+        from umlx.api import server
         print("✓ Successfully imported mlx.api.server")
         
         # Check FastAPI app exists
@@ -57,8 +57,8 @@ def test_api_structure():
     """Test API structure and models"""
     print("\nTesting API structure...")
     try:
-        from mlx.api import server
-        from mlx._version import __version__ as UMLX_VERSION
+        from umlx.api import server
+        from umlx._version import __version__ as UMLX_VERSION
         
         # Check Pydantic models exist
         models = [
@@ -93,7 +93,7 @@ def test_api_documentation():
     """Test that API documentation is configured"""
     print("\nTesting API documentation...")
     try:
-        from mlx.api import server
+        from umlx.api import server
         
         assert server.app.docs_url == "/docs", "Swagger docs URL incorrect"
         print(f"✓ Swagger docs at {server.app.docs_url}")

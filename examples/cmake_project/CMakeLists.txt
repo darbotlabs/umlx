@@ -6,17 +6,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Comment the following two commands only the MLX C++ library is installed and
-# set(MLX_ROOT "/path/to/mlx") directly if needed.
+# set(UMLX_ROOT "/path/to/umlx") directly if needed.
 find_package(
   Python 3.9
   COMPONENTS Interpreter Development.Module
   REQUIRED)
 execute_process(
-  COMMAND "${Python_EXECUTABLE}" -m mlx --cmake-dir
+  COMMAND "${Python_EXECUTABLE}" -m umlx --cmake-dir
   OUTPUT_STRIP_TRAILING_WHITESPACE
-  OUTPUT_VARIABLE MLX_ROOT)
+  OUTPUT_VARIABLE UMLX_ROOT)
 
 find_package(MLX CONFIG REQUIRED)
 
 add_executable(example example.cpp)
-target_link_libraries(example PRIVATE mlx)
+target_link_libraries(example PRIVATE umlx)

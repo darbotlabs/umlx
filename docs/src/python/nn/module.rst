@@ -1,7 +1,7 @@
 Module
 ======
 
-.. currentmodule:: mlx.nn
+.. currentmodule:: umlx.nn
 
 .. autoclass:: Module
 

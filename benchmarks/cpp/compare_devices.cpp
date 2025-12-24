@@ -1,10 +1,10 @@
 // Copyright © 2023 Apple Inc.
 
 #include <iostream>
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 #include "time_utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 void time_add_op() {
   std::vector<int> sizes(1, 1);

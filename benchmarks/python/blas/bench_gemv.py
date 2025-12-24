@@ -5,7 +5,7 @@ import subprocess
 import time
 
 import matplotlib.pyplot as plt
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 import torch
 

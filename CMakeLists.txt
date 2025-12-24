@@ -1,24 +1,24 @@
 cmake_minimum_required(VERSION 3.25)
 
-if(NOT MLX_VERSION)
-  file(STRINGS "mlx/version.h" _mlx_h_version REGEX "^#define MLX_VERSION_.*$")
-  string(REGEX MATCH "#define MLX_VERSION_MAJOR ([0-9]+)" _ "${_mlx_h_version}")
+if(NOT UMLX_VERSION)
+  file(STRINGS "umlx/version.h" _mlx_h_version REGEX "^#define UMLX_VERSION_.*$")
+  string(REGEX MATCH "#define UMLX_VERSION_MAJOR ([0-9]+)" _ "${_mlx_h_version}")
   set(_major ${CMAKE_MATCH_1})
-  string(REGEX MATCH "#define MLX_VERSION_MINOR ([0-9]+)" _ "${_mlx_h_version}")
+  string(REGEX MATCH "#define UMLX_VERSION_MINOR ([0-9]+)" _ "${_mlx_h_version}")
   set(_minor ${CMAKE_MATCH_1})
-  string(REGEX MATCH "#define MLX_VERSION_PATCH ([0-9]+)" _ "${_mlx_h_version}")
+  string(REGEX MATCH "#define UMLX_VERSION_PATCH ([0-9]+)" _ "${_mlx_h_version}")
   set(_patch ${CMAKE_MATCH_1})
-  set(MLX_PROJECT_VERSION "${_major}.${_minor}.${_patch}")
-  set(MLX_VERSION ${MLX_PROJECT_VERSION})
+  set(UMLX_PROJECT_VERSION "${_major}.${_minor}.${_patch}")
+  set(UMLX_VERSION ${UMLX_PROJECT_VERSION})
 else()
-  string(REGEX REPLACE "^([0-9]+\.[0-9]+\.[0-9]+).*" "\\1" MLX_PROJECT_VERSION
-                       ${MLX_VERSION})
+  string(REGEX REPLACE "^([0-9]+\.[0-9]+\.[0-9]+).*" "\\1" UMLX_PROJECT_VERSION
+                       ${UMLX_VERSION})
 endif()
 
 project(
-  mlx
+  umlx
   LANGUAGES C CXX
-  VERSION ${MLX_PROJECT_VERSION}
+  VERSION ${UMLX_PROJECT_VERSION}
   DESCRIPTION "UMLX: Universal MLX - Cross-platform ML framework")
 
 # ----------------------------- Setup -----------------------------
@@ -30,22 +30,22 @@ set(CMAKE_INSTALL_MESSAGE NEVER)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # ----------------------------- Configuration -----------------------------
-option(MLX_BUILD_TESTS "Build tests for mlx" ON)
-option(MLX_BUILD_EXAMPLES "Build examples for mlx" ON)
-option(MLX_BUILD_BENCHMARKS "Build benchmarks for mlx" OFF)
-option(MLX_BUILD_PYTHON_BINDINGS "Build python bindings for mlx" OFF)
-option(MLX_BUILD_METAL "Build metal backend" ON)
-option(MLX_BUILD_CPU "Build cpu backend" ON)
-option(MLX_BUILD_CUDA "Build cuda backend" OFF)
-option(MLX_METAL_DEBUG "Enhance metal debug workflow" OFF)
-option(MLX_ENABLE_X64_MAC "Enable building for x64 macOS" OFF)
-option(MLX_BUILD_GGUF "Include support for GGUF format" ON)
-option(MLX_BUILD_SAFETENSORS "Include support for safetensors format" ON)
-option(MLX_BUILD_BLAS_FROM_SOURCE "Build OpenBLAS from source code" OFF)
-option(MLX_BUILD_PYTHON_STUBS "Build stub files for python bindings" ON)
-option(MLX_METAL_JIT "Use JIT compilation for Metal kernels" OFF)
-option(MLX_USE_CCACHE "Use CCache for compilation cache when available" ON)
-option(BUILD_SHARED_LIBS "Build mlx as a shared library" OFF)
+option(UMLX_BUILD_TESTS "Build tests for umlx" ON)
+option(UMLX_BUILD_EXAMPLES "Build examples for umlx" ON)
+option(UMLX_BUILD_BENCHMARKS "Build benchmarks for umlx" OFF)
+option(UMLX_BUILD_PYTHON_BINDINGS "Build python bindings for umlx" OFF)
+option(UMLX_BUILD_METAL "Build metal backend" ON)
+option(UMLX_BUILD_CPU "Build cpu backend" ON)
+option(UMLX_BUILD_CUDA "Build cuda backend" OFF)
+option(UMLX_METAL_DEBUG "Enhance metal debug workflow" OFF)
+option(UMLX_ENABLE_X64_MAC "Enable building for x64 macOS" OFF)
+option(UMLX_BUILD_GGUF "Include support for GGUF format" ON)
+option(UMLX_BUILD_SAFETENSORS "Include support for safetensors format" ON)
+option(UMLX_BUILD_BLAS_FROM_SOURCE "Build OpenBLAS from source code" OFF)
+option(UMLX_BUILD_PYTHON_STUBS "Build stub files for python bindings" ON)
+option(UMLX_METAL_JIT "Use JIT compilation for Metal kernels" OFF)
+option(UMLX_USE_CCACHE "Use CCache for compilation cache when available" ON)
+option(BUILD_SHARED_LIBS "Build umlx as a shared library" OFF)
 option(USE_SYSTEM_FMT "Use system's provided fmt library" OFF)
 option(USE_ASAN "Enable AddressSanitizer (ASan)" OFF)
 option(USE_UBSAN "Enable UndefinedBehaviorSanitizer (UBSan)" OFF)
@@ -59,24 +59,24 @@ message(
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64")
-    if(NOT MLX_ENABLE_X64_MAC)
+    if(NOT UMLX_ENABLE_X64_MAC)
       message(
         FATAL_ERROR
           "Building for x86_64 on macOS is not supported."
           " If you are on an Apple silicon system, check the build"
           " documentation for possible fixes: "
-          "https://ml-explore.github.io/mlx/build/html/install.html#build-from-source"
+          "https://ml-explore.github.io/umlx/build/html/install.html#build-from-source"
       )
     else()
-      set(MLX_BUILD_METAL OFF)
+      set(UMLX_BUILD_METAL OFF)
       message(WARNING "Building for x86_64 arch is not officially supported.")
     endif()
   endif()
 else()
-  set(MLX_BUILD_METAL OFF)
+  set(UMLX_BUILD_METAL OFF)
 endif()
 
-if(MLX_USE_CCACHE)
+if(UMLX_USE_CCACHE)
   find_program(CCACHE_PROGRAM ccache)
   if(CCACHE_PROGRAM)
     message(STATUS "Found CCache: ${CCACHE_PROGRAM}")
@@ -149,20 +149,20 @@ include(FetchContent)
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
 cmake_policy(SET CMP0135 NEW)
 
-add_library(mlx)
+add_library(umlx)
 
 # Supress warnings: note: parameter passing for argument of type
 # ‘std::pair<float, float>’ when C++17 is enabled changed to match C++14 in GCC
 # 10.1
-target_compile_options(mlx PRIVATE -Wno-psabi)
-target_compile_options(mlx PUBLIC ${SANITIZER_COMPILE_FLAGS})
-target_link_options(mlx PUBLIC ${SANITIZER_LINK_FLAGS})
+target_compile_options(umlx PRIVATE -Wno-psabi)
+target_compile_options(umlx PUBLIC ${SANITIZER_COMPILE_FLAGS})
+target_link_options(umlx PUBLIC ${SANITIZER_LINK_FLAGS})
 
-if(MLX_BUILD_CUDA)
+if(UMLX_BUILD_CUDA)
   enable_language(CUDA)
 endif()
 
-if(MLX_BUILD_METAL)
+if(UMLX_BUILD_METAL)
   find_library(METAL_LIB Metal)
   find_library(FOUNDATION_LIB Foundation)
   find_library(QUARTZ_LIB QuartzCore)
@@ -171,11 +171,11 @@ if(MLX_BUILD_METAL)
   else()
     message(
       FATAL_ERROR
-        "Metal not found. Set MLX_BUILD_METAL=OFF to build without GPU")
+        "Metal not found. Set UMLX_BUILD_METAL=OFF to build without GPU")
   endif()
 
-  if(MLX_METAL_DEBUG)
-    add_compile_definitions(MLX_METAL_DEBUG)
+  if(UMLX_METAL_DEBUG)
+    add_compile_definitions(UMLX_METAL_DEBUG)
   endif()
 
   # Throw an error if xcrun not found
@@ -187,7 +187,7 @@ if(MLX_BUILD_METAL)
   if(${MACOS_SDK_VERSION} LESS 14.0)
     message(
       FATAL_ERROR
-        "MLX requires macOS SDK >= 14.0 to be built with MLX_BUILD_METAL=ON")
+        "MLX requires macOS SDK >= 14.0 to be built with UMLX_BUILD_METAL=ON")
   endif()
   message(STATUS "Building with macOS SDK version ${MACOS_SDK_VERSION}")
 
@@ -204,27 +204,27 @@ if(MLX_BUILD_METAL)
     COMMAND
       zsh "-c"
       "echo \"__METAL_VERSION__\" | xcrun -sdk macosx metal ${XCRUN_FLAGS} -E -x metal -P - | tail -1 | tr -d '\n'"
-    OUTPUT_VARIABLE MLX_METAL_VERSION COMMAND_ERROR_IS_FATAL ANY)
+    OUTPUT_VARIABLE UMLX_METAL_VERSION COMMAND_ERROR_IS_FATAL ANY)
   FetchContent_Declare(metal_cpp URL ${METAL_CPP_URL})
   FetchContent_MakeAvailable(metal_cpp)
   target_include_directories(
-    mlx PUBLIC $<BUILD_INTERFACE:${metal_cpp_SOURCE_DIR}>
+    umlx PUBLIC $<BUILD_INTERFACE:${metal_cpp_SOURCE_DIR}>
                $<INSTALL_INTERFACE:include/metal_cpp>)
-  target_link_libraries(mlx PUBLIC ${METAL_LIB} ${FOUNDATION_LIB} ${QUARTZ_LIB})
+  target_link_libraries(umlx PUBLIC ${METAL_LIB} ${FOUNDATION_LIB} ${QUARTZ_LIB})
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   # With newer clang/gcc versions following libs are implicitly linked, but when
   # building on old distributions they need to be explicitly listed.
-  target_link_libraries(mlx PRIVATE dl pthread)
+  target_link_libraries(umlx PRIVATE dl pthread)
 endif()
 
 if(WIN32)
   if(MSVC)
     # GGUF does not build with MSVC.
-    set(MLX_BUILD_GGUF OFF)
+    set(UMLX_BUILD_GGUF OFF)
     # There is no prebuilt OpenBLAS distribution for MSVC.
-    set(MLX_BUILD_BLAS_FROM_SOURCE ON)
+    set(UMLX_BUILD_BLAS_FROM_SOURCE ON)
   endif()
   # Windows implementation of dlfcn.h APIs.
   FetchContent_Declare(
@@ -236,25 +236,25 @@ if(WIN32)
   set(BUILD_SHARED_LIBS OFF)
   FetchContent_MakeAvailable(dlfcn-win32)
   endblock()
-  target_include_directories(mlx PRIVATE "${dlfcn-win32_SOURCE_DIR}/src")
-  target_link_libraries(mlx PRIVATE dl)
+  target_include_directories(umlx PRIVATE "${dlfcn-win32_SOURCE_DIR}/src")
+  target_link_libraries(umlx PRIVATE dl)
 endif()
 
-if(MLX_BUILD_CPU)
+if(UMLX_BUILD_CPU)
   find_library(ACCELERATE_LIBRARY Accelerate)
   if(ACCELERATE_LIBRARY)
     message(STATUS "Accelerate found ${ACCELERATE_LIBRARY}")
-    set(MLX_BUILD_ACCELERATE ON)
+    set(UMLX_BUILD_ACCELERATE ON)
   else()
     message(STATUS "Accelerate not found, using default backend.")
-    set(MLX_BUILD_ACCELERATE OFF)
+    set(UMLX_BUILD_ACCELERATE OFF)
   endif()
 
-  if(MLX_BUILD_ACCELERATE)
-    target_link_libraries(mlx PUBLIC ${ACCELERATE_LIBRARY})
-    add_compile_definitions(MLX_USE_ACCELERATE)
+  if(UMLX_BUILD_ACCELERATE)
+    target_link_libraries(umlx PUBLIC ${ACCELERATE_LIBRARY})
+    add_compile_definitions(UMLX_USE_ACCELERATE)
     add_compile_definitions(ACCELERATE_NEW_LAPACK)
-  elseif(MLX_BUILD_BLAS_FROM_SOURCE)
+  elseif(UMLX_BUILD_BLAS_FROM_SOURCE)
     # Download and build OpenBLAS from source code.
     FetchContent_Declare(
       openblas
@@ -264,9 +264,9 @@ if(MLX_BUILD_CPU)
     set(BUILD_STATIC_LIBS ON) # link statically
     set(NOFORTRAN ON) # msvc has no fortran compiler
     FetchContent_MakeAvailable(openblas)
-    target_link_libraries(mlx PRIVATE openblas)
+    target_link_libraries(umlx PRIVATE openblas)
     target_include_directories(
-      mlx PRIVATE "${openblas_SOURCE_DIR}/lapack-netlib/LAPACKE/include"
+      umlx PRIVATE "${openblas_SOURCE_DIR}/lapack-netlib/LAPACKE/include"
                   "${CMAKE_BINARY_DIR}/generated" "${CMAKE_BINARY_DIR}")
   else()
     if(${CMAKE_HOST_APPLE})
@@ -285,8 +285,8 @@ if(MLX_BUILD_CPU)
               /usr/local/opt/openblas/include)
     message(STATUS "Lapack lib " ${LAPACK_LIBRARIES})
     message(STATUS "Lapack include " ${LAPACK_INCLUDE_DIRS})
-    target_include_directories(mlx PRIVATE ${LAPACK_INCLUDE_DIRS})
-    target_link_libraries(mlx PRIVATE ${LAPACK_LIBRARIES})
+    target_include_directories(umlx PRIVATE ${LAPACK_INCLUDE_DIRS})
+    target_link_libraries(umlx PRIVATE ${LAPACK_LIBRARIES})
     # List blas after lapack otherwise we may accidentally incldue an old
     # version of lapack.h from the include dirs of blas.
     find_package(BLAS REQUIRED)
@@ -298,11 +298,11 @@ if(MLX_BUILD_CPU)
               $ENV{BLAS_HOME}/include)
     message(STATUS "Blas lib " ${BLAS_LIBRARIES})
     message(STATUS "Blas include " ${BLAS_INCLUDE_DIRS})
-    target_include_directories(mlx PRIVATE ${BLAS_INCLUDE_DIRS})
-    target_link_libraries(mlx PRIVATE ${BLAS_LIBRARIES})
+    target_include_directories(umlx PRIVATE ${BLAS_INCLUDE_DIRS})
+    target_link_libraries(umlx PRIVATE ${BLAS_LIBRARIES})
   endif()
 else()
-  set(MLX_BUILD_ACCELERATE OFF)
+  set(UMLX_BUILD_ACCELERATE OFF)
 endif()
 
 message(STATUS "Downloading json")
@@ -311,16 +311,16 @@ FetchContent_Declare(
   URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 FetchContent_MakeAvailable(json)
 target_include_directories(
-  mlx PRIVATE $<BUILD_INTERFACE:${json_SOURCE_DIR}/single_include/nlohmann>)
+  umlx PRIVATE $<BUILD_INTERFACE:${json_SOURCE_DIR}/single_include/nlohmann>)
 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/mlx)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/umlx)
 
 target_include_directories(
-  mlx PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
+  umlx PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
              $<INSTALL_INTERFACE:include>)
 
 # Do not add mlx_EXPORTS define for shared library.
-set_target_properties(mlx PROPERTIES DEFINE_SYMBOL "")
+set_target_properties(umlx PROPERTIES DEFINE_SYMBOL "")
 
 if(USE_SYSTEM_FMT)
   find_package(fmt REQUIRED)
@@ -332,9 +332,9 @@ else()
     EXCLUDE_FROM_ALL)
   FetchContent_MakeAvailable(fmt)
 endif()
-target_link_libraries(mlx PRIVATE $<BUILD_INTERFACE:fmt::fmt-header-only>)
+target_link_libraries(umlx PRIVATE $<BUILD_INTERFACE:fmt::fmt-header-only>)
 
-if(MLX_BUILD_PYTHON_BINDINGS)
+if(UMLX_BUILD_PYTHON_BINDINGS)
   message(STATUS "Building Python bindings.")
   find_package(
     Python 3.10
@@ -350,16 +350,16 @@ if(MLX_BUILD_PYTHON_BINDINGS)
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/python/src)
 endif()
 
-if(MLX_BUILD_TESTS)
+if(UMLX_BUILD_TESTS)
   include(CTest)
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/tests)
 endif()
 
-if(MLX_BUILD_EXAMPLES)
+if(UMLX_BUILD_EXAMPLES)
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/examples/cpp)
 endif()
 
-if(MLX_BUILD_BENCHMARKS)
+if(UMLX_BUILD_BENCHMARKS)
   add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/benchmarks/cpp)
 endif()
 
@@ -368,7 +368,7 @@ include(GNUInstallDirs)
 
 # Install library
 install(
-  TARGETS mlx
+  TARGETS umlx
   EXPORT MLXTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -378,7 +378,7 @@ install(
 
 # Install headers
 install(
-  DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/mlx
+  DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/umlx
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   COMPONENT headers
   FILES_MATCHING
@@ -386,7 +386,7 @@ install(
   PATTERN "backend/metal/kernels.h" EXCLUDE)
 
 # Install metal dependencies
-if(MLX_BUILD_METAL)
+if(UMLX_BUILD_METAL)
 
   # Install metal cpp
   install(
@@ -397,31 +397,31 @@ if(MLX_BUILD_METAL)
 endif()
 
 # Install cmake config
-set(MLX_CMAKE_BUILD_CONFIG ${CMAKE_BINARY_DIR}/MLXConfig.cmake)
-set(MLX_CMAKE_BUILD_VERSION_CONFIG ${CMAKE_BINARY_DIR}/MLXConfigVersion.cmake)
-set(MLX_CMAKE_INSTALL_MODULE_DIR share/cmake/MLX)
+set(UMLX_CMAKE_BUILD_CONFIG ${CMAKE_BINARY_DIR}/MLXConfig.cmake)
+set(UMLX_CMAKE_BUILD_VERSION_CONFIG ${CMAKE_BINARY_DIR}/MLXConfigVersion.cmake)
+set(UMLX_CMAKE_INSTALL_MODULE_DIR share/cmake/MLX)
 
 install(
   EXPORT MLXTargets
   FILE MLXTargets.cmake
-  DESTINATION ${MLX_CMAKE_INSTALL_MODULE_DIR})
+  DESTINATION ${UMLX_CMAKE_INSTALL_MODULE_DIR})
 
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
-  ${MLX_CMAKE_BUILD_VERSION_CONFIG}
+  ${UMLX_CMAKE_BUILD_VERSION_CONFIG}
   COMPATIBILITY SameMajorVersion
-  VERSION ${MLX_VERSION})
+  VERSION ${UMLX_VERSION})
 
 configure_package_config_file(
-  ${CMAKE_CURRENT_LIST_DIR}/mlx.pc.in ${MLX_CMAKE_BUILD_CONFIG}
-  INSTALL_DESTINATION ${MLX_CMAKE_INSTALL_MODULE_DIR}
+  ${CMAKE_CURRENT_LIST_DIR}/umlx.pc.in ${UMLX_CMAKE_BUILD_CONFIG}
+  INSTALL_DESTINATION ${UMLX_CMAKE_INSTALL_MODULE_DIR}
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
   PATH_VARS CMAKE_INSTALL_LIBDIR CMAKE_INSTALL_INCLUDEDIR
-            MLX_CMAKE_INSTALL_MODULE_DIR)
+            UMLX_CMAKE_INSTALL_MODULE_DIR)
 
-install(FILES ${MLX_CMAKE_BUILD_CONFIG} ${MLX_CMAKE_BUILD_VERSION_CONFIG}
-        DESTINATION ${MLX_CMAKE_INSTALL_MODULE_DIR})
+install(FILES ${UMLX_CMAKE_BUILD_CONFIG} ${UMLX_CMAKE_BUILD_VERSION_CONFIG}
+        DESTINATION ${UMLX_CMAKE_INSTALL_MODULE_DIR})
 
 install(DIRECTORY ${CMAKE_MODULE_PATH}/
-        DESTINATION ${MLX_CMAKE_INSTALL_MODULE_DIR})
+        DESTINATION ${UMLX_CMAKE_INSTALL_MODULE_DIR})

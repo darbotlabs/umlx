@@ -1,6 +1,6 @@
 .. _layers:
 
-.. currentmodule:: mlx.nn
+.. currentmodule:: umlx.nn
 
 Layers
 ------

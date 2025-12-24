@@ -2,9 +2,9 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test fft basics") {
   array x(1.0);

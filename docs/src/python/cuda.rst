@@ -1,7 +1,7 @@
 CUDA
 =====
 
-.. currentmodule:: mlx.core.cuda
+.. currentmodule:: umlx.core.cuda
 
 .. autosummary::
   :toctree: _autosummary

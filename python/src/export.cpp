@@ -10,13 +10,13 @@
 
 #include <fstream>
 
-#include "mlx/array.h"
-#include "mlx/export.h"
-#include "mlx/graph_utils.h"
+#include "umlx/array.h"
+#include "umlx/export.h"
+#include "umlx/graph_utils.h"
 #include "python/src/small_vector.h"
 #include "python/src/trees.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

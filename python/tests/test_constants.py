@@ -2,12 +2,12 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestConstants(mlx_tests.MLXTestCase):
+class TestConstants(umlx_tests.UMLXTestCase):
     def test_constants_values(self):
         # Check if mlx constants match expected values
         self.assertAlmostEqual(
@@ -38,4 +38,4 @@ class TestConstants(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

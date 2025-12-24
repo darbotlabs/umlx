@@ -4,11 +4,11 @@
 
 #include <cmath>
 
-#include "mlx/mlx.h"
-#include "mlx/ops.h"
+#include "umlx/umlx.h"
+#include "umlx/ops.h"
 
-using namespace mlx::core;
-using namespace mlx::core::linalg;
+using namespace uumlx::core;
+using namespace uumlx::core::linalg;
 
 TEST_CASE("[mlx.core.linalg.norm] no ord") {
   // Zero dimensions
@@ -333,7 +333,7 @@ TEST_CASE("test SVD factorization") {
   CHECK_THROWS(linalg::svd(array({0, 1}, {1, 2})));
 
   const auto prng_key = random::key(42);
-  const auto A = mlx::core::random::normal({5, 4}, prng_key);
+  const auto A = umlx::core::random::normal({5, 4}, prng_key);
   const auto outs = linalg::svd(A, true, Device::cpu);
   CHECK_EQ(outs.size(), 3);
 
@@ -462,7 +462,7 @@ TEST_CASE("test matrix pseudo-inverse") {
 }
 
 TEST_CASE("test cross product") {
-  using namespace mlx::core::linalg;
+  using namespace uumlx::core::linalg;
 
   // Test for vectors of length 3
   array a = array({1.0, 2.0, 3.0});

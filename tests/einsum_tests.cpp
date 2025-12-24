@@ -1,9 +1,9 @@
 // Copyright © 2024 Apple Inc.
 
 #include "doctest/doctest.h"
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test einsum path") {
   std::vector<std::vector<int>> expected = {{1, 2}, {0, 1}};

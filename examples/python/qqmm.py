@@ -1,6 +1,6 @@
 from itertools import product
 
-import mlx.core as mx
+import umlx.core as mx
 
 
 # In mxfp8 mode, the results do not match exactly:

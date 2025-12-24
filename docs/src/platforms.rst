@@ -180,7 +180,7 @@ Nvidia RTX 4090 development machine:
     pip install umlx[cuda12]
     
     # Verify GPU detection
-    python -c "import mlx.core as mx; print(mx.metal.is_available())"
+    python -c "import umlx.core as mx; print(mx.metal.is_available())"
 
 Multi-GPU Training Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -189,7 +189,7 @@ DGX A100 with 8x GPUs:
 
 .. code-block:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
     from mlx.distributed import init
     
     # Initialize multi-GPU

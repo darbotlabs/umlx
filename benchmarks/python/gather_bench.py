@@ -2,7 +2,7 @@
 
 import argparse
 
-import mlx.core as mx
+import umlx.core as mx
 import torch
 from time_utils import measure_runtime
 

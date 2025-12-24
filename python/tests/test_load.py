@@ -5,12 +5,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestLoad(mlx_tests.MLXTestCase):
+class TestLoad(umlx_tests.UMLXTestCase):
     dtypes = [
         "uint8",
         "uint16",
@@ -421,4 +421,4 @@ class TestLoad(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

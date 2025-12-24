@@ -1,13 +1,13 @@
 # Copyright © 2023 Apple Inc.
 import unittest
 
-import mlx.core as mx
-import mlx.nn.init as init
-import mlx_tests
+import umlx.core as mx
+import umlx.nn.init as init
+import umlx_tests
 import numpy as np
 
 
-class TestInit(mlx_tests.MLXTestCase):
+class TestInit(umlx_tests.UMLXTestCase):
     def test_constant(self):
         value = 5.0
 
@@ -136,4 +136,4 @@ class TestInit(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

@@ -28,7 +28,7 @@ which will yield the same pseudo random number at each iteration.
 Following `JAX's PRNG design <https://jax.readthedocs.io/en/latest/jep/263-prng.html>`_
 we use a splittable version of Threefry, which is a counter-based PRNG.
 
-.. currentmodule:: mlx.core.random
+.. currentmodule:: umlx.core.random
 
 .. autosummary:: 
   :toctree: _autosummary

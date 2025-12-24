@@ -6,7 +6,7 @@ from copy import copy
 from functools import partial
 
 import matplotlib.pyplot as plt
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 import torch
 from matplotlib.ticker import FuncFormatter

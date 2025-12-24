@@ -1,8 +1,8 @@
 import math
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
@@ -137,7 +137,7 @@ def mlx_primitives_sdpa_with_gqa(q, k, v, scale, mask=None):
     return mlx_primitives_sdpa(q, k, v, scale, mask=mask)
 
 
-class TestFastSelfAttentionSDPA(mlx_tests.MLXTestCase):
+class TestFastSelfAttentionSDPA(umlx_tests.UMLXTestCase):
     def test_fast_sdpa(self):
         # Not yet supported:
         # * K pre-transposed in kernel, V pre-transposed in kernel
@@ -211,7 +211,7 @@ class TestFastSelfAttentionSDPA(mlx_tests.MLXTestCase):
                 self.assertTrue(mx.allclose(o_mlx, reference, rtol=rtol, atol=atol))
 
 
-class TestFastSDPA(mlx_tests.MLXTestCase):
+class TestFastSDPA(umlx_tests.UMLXTestCase):
     def test_fast_sdpa(self):
         # Not yet supported:
         # * K pre-transposed in kernel, V pre-transposed in kernel
@@ -548,7 +548,7 @@ class TestFastSDPA(mlx_tests.MLXTestCase):
         self.assertTrue(mx.allclose(ref, out, atol=1e-4, rtol=1e-4))
 
 
-class TestSDPA(mlx_tests.MLXTestCase):
+class TestSDPA(umlx_tests.UMLXTestCase):
     def test_sdpa(self):
         if not mx.is_available(mx.gpu):
             return
@@ -805,4 +805,4 @@ class TestSDPA(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner(failfast=True)
+    umlx_tests.UMLXTestRunner(failfast=True)

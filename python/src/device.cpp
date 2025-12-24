@@ -5,10 +5,10 @@
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/string.h>
 
-#include "mlx/device.h"
-#include "mlx/utils.h"
+#include "umlx/device.h"
+#include "umlx/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

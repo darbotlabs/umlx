@@ -7,12 +7,12 @@
 
 #include <chrono>
 
-#include "mlx/ops.h"
-#include "mlx/random.h"
+#include "umlx/ops.h"
+#include "umlx/random.h"
 #include "python/src/small_vector.h"
 #include "python/src/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

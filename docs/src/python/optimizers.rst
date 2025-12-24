@@ -1,14 +1,14 @@
 .. _optimizers:
 
-.. currentmodule:: mlx.optimizers
+.. currentmodule:: umlx.optimizers
 
 Optimizers
 ==========
 
-The optimizers in UMLX can be used both with :mod:`mlx.nn` but also with pure
-:mod:`mlx.core` functions. A typical example involves calling
+The optimizers in UMLX can be used both with :mod:`umlx.nn` but also with pure
+:mod:`umlx.core` functions. A typical example involves calling
 :meth:`Optimizer.update` to update a model's parameters based on the loss
-gradients and subsequently calling :func:`mlx.core.eval` to evaluate both the
+gradients and subsequently calling :func:`umlx.core.eval` to evaluate both the
 model's parameters and the **optimizer state**.
 
 .. code-block:: python
@@ -39,9 +39,9 @@ the saved state. Here's a simple example:
 
 .. code-block:: python
 
-   import mlx.core as mx
+   import umlx.core as mx
    from mlx.utils import tree_flatten, tree_unflatten
-   import mlx.optimizers as optim
+   import umlx.optimizers as optim
 
    optimizer = optim.Adam(learning_rate=1e-2)
 

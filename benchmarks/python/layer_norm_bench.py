@@ -2,8 +2,8 @@
 
 from functools import partial
 
-import mlx.core as mx
-import mlx.nn as nn
+import umlx.core as mx
+import umlx.nn as nn
 from time_utils import time_fn
 
 

@@ -3,7 +3,7 @@
 Using Streams
 =============
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 Specifying the :obj:`Stream`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

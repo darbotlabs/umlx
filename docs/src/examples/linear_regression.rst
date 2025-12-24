@@ -8,7 +8,7 @@ learn MLX. First import the core package and setup some problem metadata:
 
 .. code-block:: python
 
-  import mlx.core as mx
+  import umlx.core as mx
 
   num_features = 100
   num_examples = 1_000

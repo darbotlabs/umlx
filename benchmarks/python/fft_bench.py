@@ -1,7 +1,7 @@
 # Copyright © 2024 Apple Inc.
 
 import matplotlib
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 import sympy
 import torch

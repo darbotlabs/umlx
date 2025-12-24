@@ -3,11 +3,11 @@
 import unittest
 from functools import partial
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestEval(mlx_tests.MLXTestCase):
+class TestEval(umlx_tests.UMLXTestCase):
     def test_eval(self):
         arrs = [mx.ones((2, 2)) for _ in range(4)]
         mx.eval(*arrs)
@@ -197,4 +197,4 @@ class TestEval(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

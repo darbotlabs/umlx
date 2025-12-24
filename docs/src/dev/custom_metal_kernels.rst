@@ -8,7 +8,7 @@ MLX supports writing custom Metal kernels through the Python and C++ APIs.
 Simple Example
 --------------
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 Let's write a custom kernel that computes ``exp`` elementwise:
 

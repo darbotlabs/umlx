@@ -3,12 +3,12 @@
 import unittest
 from itertools import combinations, permutations
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestReduce(mlx_tests.MLXTestCase):
+class TestReduce(umlx_tests.UMLXTestCase):
     def test_axis_permutation_sums(self):
         for shape in [(5, 5, 1, 5, 5), (65, 65, 1, 65)]:
             with self.subTest(shape=shape):
@@ -220,4 +220,4 @@ class TestReduce(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner(failfast=True)
+    umlx_tests.UMLXTestRunner(failfast=True)

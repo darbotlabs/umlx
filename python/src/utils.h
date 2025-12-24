@@ -10,10 +10,10 @@
 #include <nanobind/stl/complex.h>
 #include <nanobind/stl/variant.h>
 
-#include "mlx/array.h"
+#include "umlx/array.h"
 #include "python/src/convert.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 using IntOrVec = std::variant<std::monostate, int, std::vector<int>>;

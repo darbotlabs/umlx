@@ -3,7 +3,7 @@
 Function Transforms
 ===================
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 UMLX uses composable function transformations for automatic differentiation,
 vectorization, and compute graph optimizations. To see the complete list of

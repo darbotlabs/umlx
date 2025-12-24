@@ -3,11 +3,11 @@
 import gc
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestAutograd(mlx_tests.MLXTestCase):
+class TestAutograd(umlx_tests.UMLXTestCase):
     def test_jvp(self):
         fun = lambda x: 2 * x
         out, dout = mx.jvp(fun, [mx.array(1.0)], [mx.array(2.0)])
@@ -877,4 +877,4 @@ class TestAutograd(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

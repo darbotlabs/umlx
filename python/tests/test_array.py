@@ -16,8 +16,8 @@ if platform.system() == "Windows":
 else:
     import resource
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 try:
@@ -28,7 +28,7 @@ except ImportError as e:
     has_tf = False
 
 
-class TestVersion(mlx_tests.MLXTestCase):
+class TestVersion(umlx_tests.UMLXTestCase):
     def test_version(self):
         v = mx.__version__
         vnums = v.split(".")
@@ -37,7 +37,7 @@ class TestVersion(mlx_tests.MLXTestCase):
         self.assertEqual(v, mx.__version__[: len(v)])
 
 
-class TestDtypes(mlx_tests.MLXTestCase):
+class TestDtypes(umlx_tests.UMLXTestCase):
     def test_dtypes(self):
         self.assertEqual(mx.bool_.size, 1)
         self.assertEqual(mx.uint8.size, 1)
@@ -124,7 +124,7 @@ class TestDtypes(mlx_tests.MLXTestCase):
         self.assertEqual(mx.iinfo(mx.int8).dtype, mx.int8)
 
 
-class TestEquality(mlx_tests.MLXTestCase):
+class TestEquality(umlx_tests.UMLXTestCase):
     def test_array_eq_array(self):
         a = mx.array([1, 2, 3])
         b = mx.array([1, 2, 3])
@@ -164,7 +164,7 @@ class TestEquality(mlx_tests.MLXTestCase):
         self.assertFalse(a == c)
 
 
-class TestInequality(mlx_tests.MLXTestCase):
+class TestInequality(umlx_tests.UMLXTestCase):
     def test_array_ne_array(self):
         a = mx.array([1, 2, 3])
         b = mx.array([1, 2, 3])
@@ -275,7 +275,7 @@ class TestInequality(mlx_tests.MLXTestCase):
             a | str_
 
 
-class TestArray(mlx_tests.MLXTestCase):
+class TestArray(umlx_tests.UMLXTestCase):
     def test_array_basics(self):
         x = mx.array(1)
         self.assertEqual(x.size, 1)
@@ -2072,4 +2072,4 @@ class TestArray(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

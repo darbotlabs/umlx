@@ -3,14 +3,14 @@
 #include <mlx/mlx.h>
 #include <iostream>
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 int main() {
   int batch_size = 8;
   int input_dim = 32;
   int output_dim = 10;
 
-  auto state = mx::import_function("init_mlp.mlxfn")({});
+  auto state = mx::import_function("init_mlp.umlxfn")({});
 
   // Make the input
   mx::random::seed(42);
@@ -18,7 +18,7 @@ int main() {
   auto example_y = mx::random::randint(0, output_dim, {batch_size});
 
   // Import the function
-  auto step = mx::import_function("train_mlp.mlxfn");
+  auto step = mx::import_function("train_mlp.umlxfn");
 
   // Call the imported function
   for (int it = 0; it < 100; ++it) {

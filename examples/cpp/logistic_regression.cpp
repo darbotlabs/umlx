@@ -4,13 +4,13 @@
 #include <cmath>
 #include <iostream>
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 #include "timer.h"
 
 /**
  * An example of logistic regression with MLX.
  */
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 int main() {
   int num_features = 100;

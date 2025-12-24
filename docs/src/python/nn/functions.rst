@@ -1,6 +1,6 @@
 .. _nn_functions:
 
-.. currentmodule:: mlx.nn
+.. currentmodule:: umlx.nn
 
 Functions
 ---------

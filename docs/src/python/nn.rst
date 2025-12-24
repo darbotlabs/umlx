@@ -1,16 +1,16 @@
 .. _nn:
 
-.. currentmodule:: mlx.nn
+.. currentmodule:: umlx.nn
 
 Neural Networks
 ===============
 
 Writing arbitrarily complex neural networks in UMLX can be done using only
-:class:`mlx.core.array` and :meth:`mlx.core.value_and_grad`. However, this requires the
+:class:`umlx.core.array` and :meth:`umlx.core.value_and_grad`. However, this requires the
 user to write again and again the same simple neural network operations as well
 as handle all the parameter state and initialization manually and explicitly.
 
-The module :mod:`mlx.nn` solves this problem by providing an intuitive way of
+The module :mod:`umlx.nn` solves this problem by providing an intuitive way of
 composing neural network layers, initializing their parameters, freezing them
 for finetuning and more.
 
@@ -19,8 +19,8 @@ Quick Start with Neural Networks
 
 .. code-block:: python
 
-    import mlx.core as mx
-    import mlx.nn as nn
+    import umlx.core as mx
+    import umlx.nn as nn
 
     class MLP(nn.Module):
         def __init__(self, in_dims: int, out_dims: int):
@@ -70,7 +70,7 @@ The Module Class
 ----------------
 
 The workhorse of any neural network library is the :class:`Module` class. In
-UMLX the :class:`Module` class is a container of :class:`mlx.core.array` or
+UMLX the :class:`Module` class is a container of :class:`umlx.core.array` or
 :class:`Module` instances. Its main function is to provide a way to
 recursively **access** and **update** its parameters and those of its
 submodules.
@@ -78,7 +78,7 @@ submodules.
 Parameters
 ^^^^^^^^^^
 
-A parameter of a module is any public member of type :class:`mlx.core.array` (its
+A parameter of a module is any public member of type :class:`umlx.core.array` (its
 name should not start with ``_``). It can be arbitrarily nested in other
 :class:`Module` instances or lists and dictionaries.
 
@@ -86,7 +86,7 @@ name should not start with ``_``). It can be arbitrarily nested in other
 the parameters of a module and its submodules.
 
 A :class:`Module` can also keep track of "frozen" parameters. See the
-:meth:`Module.freeze` method for more details. :meth:`mlx.nn.value_and_grad`
+:meth:`Module.freeze` method for more details. :meth:`umlx.nn.value_and_grad`
 the gradients returned will be with respect to these trainable parameters.
 
 
@@ -140,7 +140,7 @@ Value and Grad
 --------------
 
 Using a :class:`Module` does not preclude using UMLX's high order function
-transformations (:meth:`mlx.core.value_and_grad`, :meth:`mlx.core.grad`, etc.). However,
+transformations (:meth:`umlx.core.value_and_grad`, :meth:`umlx.core.grad`, etc.). However,
 these function transformations assume pure functions, namely the parameters
 should be passed as an argument to the function being transformed.
 
@@ -156,18 +156,18 @@ There is an easy pattern to achieve that with UMLX modules
 
     f(model.trainable_parameters(), mx.zeros((10,)))
 
-However, :meth:`mlx.nn.value_and_grad` provides precisely this pattern and only
+However, :meth:`umlx.nn.value_and_grad` provides precisely this pattern and only
 computes the gradients with respect to the trainable parameters of the model.
 
 In detail:
 
 - it wraps the passed function with a function that calls :meth:`Module.update`
   to make sure the model is using the provided parameters.
-- it calls :meth:`mlx.core.value_and_grad` to transform the function into a function
+- it calls :meth:`umlx.core.value_and_grad` to transform the function into a function
   that also computes the gradients with respect to the passed parameters.
 - it wraps the returned function with a function that passes the trainable
   parameters as the first argument to the function returned by
-  :meth:`mlx.core.value_and_grad`
+  :meth:`umlx.core.value_and_grad`
 
 .. autosummary::
    :toctree: _autosummary

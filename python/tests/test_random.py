@@ -3,11 +3,11 @@
 import math
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestRandom(mlx_tests.MLXTestCase):
+class TestRandom(umlx_tests.UMLXTestCase):
     def test_global_rng(self):
         mx.random.seed(3)
         a = mx.random.uniform()
@@ -389,4 +389,4 @@ class TestRandom(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

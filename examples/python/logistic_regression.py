@@ -2,7 +2,7 @@
 
 import time
 
-import mlx.core as mx
+import umlx.core as mx
 
 num_features = 100
 num_examples = 1_000

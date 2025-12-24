@@ -2,9 +2,9 @@
 #pragma once
 #include <nanobind/nanobind.h>
 
-#include "mlx/array.h"
+#include "umlx/array.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 void tree_visit(

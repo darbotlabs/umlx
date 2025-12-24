@@ -7,12 +7,12 @@ import math
 from functools import partial, wraps
 from io import StringIO
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestCompile(mlx_tests.MLXTestCase):
+class TestCompile(umlx_tests.UMLXTestCase):
     def test_simple_compile(self):
         def fun(x, y):
             return x + y
@@ -1274,4 +1274,4 @@ class TestCompile(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

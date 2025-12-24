@@ -1,8 +1,8 @@
 import time
 
-import mlx.core as mx
-import mlx.nn
-import mlx.optimizers as opt
+import umlx.core as mx
+import umlx.nn
+import umlx.optimizers as opt
 import torch
 
 

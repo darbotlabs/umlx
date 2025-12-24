@@ -6,7 +6,7 @@ FetchContent_MakeAvailable(doctest)
 
 add_executable(tests ${PROJECT_SOURCE_DIR}/tests/tests.cpp)
 
-if(MLX_BUILD_METAL OR MLX_BUILD_CUDA)
+if(UMLX_BUILD_METAL OR UMLX_BUILD_CUDA)
   set(METAL_TEST_SOURCES gpu_tests.cpp)
 endif()
 
@@ -36,7 +36,7 @@ target_sources(
           linalg_tests.cpp
           ${METAL_TEST_SOURCES})
 
-target_link_libraries(tests PRIVATE mlx doctest)
+target_link_libraries(tests PRIVATE umlx doctest)
 target_compile_options(tests PRIVATE ${SANITIZER_COMPILE_FLAGS})
 target_link_options(tests PRIVATE ${SANITIZER_LINK_FLAGS})
 doctest_discover_tests(tests)

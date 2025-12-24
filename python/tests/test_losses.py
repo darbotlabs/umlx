@@ -2,13 +2,13 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx_tests
 import numpy as np
 
 
-class TestLosses(mlx_tests.MLXTestCase):
+class TestLosses(umlx_tests.UMLXTestCase):
     def test_cross_entropy(self):
         # No weights, no label smoothing
         logits = mx.array([[0.0, -float("inf")], [-float("inf"), 0.0]])
@@ -424,4 +424,4 @@ class TestLosses(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

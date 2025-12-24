@@ -1,7 +1,7 @@
 import argparse
 
 import matplotlib
-import mlx.core as mx
+import umlx.core as mx
 import numpy as np
 from time_utils import measure_runtime
 

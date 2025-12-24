@@ -1,4 +1,4 @@
-import mlx.core as mx
+import umlx.core as mx
 from mlx_sample_extensions import axpby
 
 a = mx.ones((3, 4))

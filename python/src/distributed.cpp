@@ -7,12 +7,12 @@
 #include <nanobind/stl/variant.h>
 #include <nanobind/stl/vector.h>
 
-#include "mlx/distributed/distributed.h"
-#include "mlx/distributed/ops.h"
+#include "umlx/distributed/distributed.h"
+#include "umlx/distributed/ops.h"
 #include "python/src/small_vector.h"
 #include "python/src/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

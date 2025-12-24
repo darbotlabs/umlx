@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "mlx/ops.h"
-#include "mlx/primitives.h"
+#include "umlx/ops.h"
+#include "umlx/primitives.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 namespace my_ext {
 

@@ -8,14 +8,14 @@
 #include <unordered_map>
 #include <vector>
 
-#include "mlx/io/load.h"
-#include "mlx/ops.h"
-#include "mlx/utils.h"
+#include "umlx/io/load.h"
+#include "umlx/ops.h"
+#include "umlx/utils.h"
 #include "python/src/load.h"
 #include "python/src/small_vector.h"
 #include "python/src/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

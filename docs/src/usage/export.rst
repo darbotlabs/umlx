@@ -3,7 +3,7 @@
 Exporting Functions
 ===================
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 MLX has an API to export and import functions to and from a file. This lets you
 run computations written in one MLX front-end (e.g. Python) in another MLX
@@ -112,7 +112,7 @@ keyword arguments when calling the imported function.
 Exporting Modules
 -----------------
 
-An :obj:`mlx.nn.Module` can be exported with or without the parameters included
+An :obj:`umlx.nn.Module` can be exported with or without the parameters included
 in the exported function. Here's an example:
 
 .. code-block:: python
@@ -125,7 +125,7 @@ in the exported function. Here's an example:
 
    mx.export_function("model.mlxfn", call, mx.zeros(4))
 
-In the above example, the :obj:`mlx.nn.Linear` module is exported. Its
+In the above example, the :obj:`umlx.nn.Linear` module is exported. Its
 parameters are also saved to the ``model.mlxfn`` file.
 
 .. note::
@@ -136,7 +136,7 @@ parameters are also saved to the ``model.mlxfn`` file.
 
    If the above example was missing ``mx.eval(model.parameters()``, the
    exported function would include the random initialization of the
-   :obj:`mlx.nn.Module` parameters.
+   :obj:`umlx.nn.Module` parameters.
 
 If you only want to export the ``Module.__call__`` function without the
 parameters, pass them as inputs to the ``call`` wrapper:
@@ -187,7 +187,7 @@ In some cases, functions build different computation graphs for different
 input arguments. A simple way to manage this is to export to a new file with
 each set of inputs. This is a fine option in many cases. But it can be
 suboptimal if the exported functions have a large amount of duplicate constant
-data (for example the parameters of a :obj:`mlx.nn.Module`).
+data (for example the parameters of a :obj:`umlx.nn.Module`).
 
 The export API in MLX lets you export multiple traces of the same function to
 a single file by creating an exporting context manager with :func:`exporter`:

@@ -10,12 +10,12 @@
 #include <vector>
 #include "doctest/doctest.h"
 
-#include "mlx/graph_utils.h"
-#include "mlx/mlx.h"
+#include "umlx/graph_utils.h"
+#include "umlx/umlx.h"
 
-#include "mlx/backend/cuda/cuda.h"
+#include "umlx/backend/cuda/cuda.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test stop gradient") {
   auto x = zeros({5, 5});
@@ -384,7 +384,7 @@ TEST_CASE("test op vjps") {
   // Test sqrt
   {
     auto out = vjp(
-        [](array in) { return mlx::core::sqrt(in); }, array(4.0f), array(8.0f));
+        [](array in) { return umlx::core::sqrt(in); }, array(4.0f), array(8.0f));
     CHECK_EQ(out.second.item<float>(), 2.0f);
   }
 
@@ -1053,20 +1053,20 @@ TEST_CASE("test jvp from vjp") {
       return array_equal(vjp_out, jvp_out).item<bool>();
     };
 
-    CHECK(compute_derivs(mlx::core::abs));
-    CHECK(compute_derivs(mlx::core::cos));
-    CHECK(compute_derivs(mlx::core::erf));
-    CHECK(compute_derivs(mlx::core::erfinv));
-    CHECK(compute_derivs(mlx::core::exp));
-    CHECK(compute_derivs(mlx::core::log));
-    CHECK(compute_derivs(mlx::core::log1p));
-    CHECK(compute_derivs(mlx::core::negative));
-    CHECK(compute_derivs(mlx::core::sigmoid));
-    CHECK(compute_derivs(mlx::core::sign));
-    CHECK(compute_derivs(mlx::core::sin));
-    CHECK(compute_derivs(mlx::core::square));
-    CHECK(compute_derivs(mlx::core::sqrt));
-    CHECK(compute_derivs(mlx::core::rsqrt));
+    CHECK(compute_derivs(umlx::core::abs));
+    CHECK(compute_derivs(umlx::core::cos));
+    CHECK(compute_derivs(umlx::core::erf));
+    CHECK(compute_derivs(umlx::core::erfinv));
+    CHECK(compute_derivs(umlx::core::exp));
+    CHECK(compute_derivs(umlx::core::log));
+    CHECK(compute_derivs(umlx::core::log1p));
+    CHECK(compute_derivs(umlx::core::negative));
+    CHECK(compute_derivs(umlx::core::sigmoid));
+    CHECK(compute_derivs(umlx::core::sign));
+    CHECK(compute_derivs(umlx::core::sin));
+    CHECK(compute_derivs(umlx::core::square));
+    CHECK(compute_derivs(umlx::core::sqrt));
+    CHECK(compute_derivs(umlx::core::rsqrt));
   }
 
   // Binary element-wise ops

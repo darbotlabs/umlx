@@ -3,11 +3,11 @@
 import io
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestGraph(mlx_tests.MLXTestCase):
+class TestGraph(umlx_tests.UMLXTestCase):
     def test_to_dot(self):
         # Simply test that a few cases run.
         # Nothing too specific about the graph format
@@ -34,4 +34,4 @@ class TestGraph(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

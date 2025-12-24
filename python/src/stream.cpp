@@ -7,10 +7,10 @@
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/variant.h>
 
-#include "mlx/stream.h"
-#include "mlx/utils.h"
+#include "umlx/stream.h"
+#include "umlx/utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

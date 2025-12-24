@@ -10,13 +10,13 @@ find_package(
   COMPONENTS Interpreter Development.Module
   REQUIRED)
 execute_process(
-  COMMAND "${Python_EXECUTABLE}" -m mlx --cmake-dir
+  COMMAND "${Python_EXECUTABLE}" -m umlx --cmake-dir
   OUTPUT_STRIP_TRAILING_WHITESPACE
-  OUTPUT_VARIABLE MLX_ROOT)
+  OUTPUT_VARIABLE UMLX_ROOT)
 find_package(MLX CONFIG REQUIRED)
 
 add_executable(eval_mlp eval_mlp.cpp)
-target_link_libraries(eval_mlp PRIVATE mlx)
+target_link_libraries(eval_mlp PRIVATE umlx)
 
 add_executable(train_mlp train_mlp.cpp)
-target_link_libraries(train_mlp PRIVATE mlx)
+target_link_libraries(train_mlp PRIVATE umlx)

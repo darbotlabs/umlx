@@ -6,7 +6,7 @@
 #include "python/src/convert.h"
 #include "python/src/indexing.h"
 
-#include "mlx/ops.h"
+#include "umlx/ops.h"
 
 bool is_none_slice(const nb::slice& in_slice) {
   return (

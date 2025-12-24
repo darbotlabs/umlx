@@ -3,11 +3,11 @@
 import gc
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestVmap(mlx_tests.MLXTestCase):
+class TestVmap(umlx_tests.UMLXTestCase):
     def test_basics(self):
         # Can't vmap over scalars
         with self.assertRaises(ValueError):
@@ -857,4 +857,4 @@ class TestVmap(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

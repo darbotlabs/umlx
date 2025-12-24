@@ -1,0 +1,52 @@
+# Find UMLX
+#
+# Defines the following variables:
+#
+#   UMLX_FOUND            : True if UMLX is found
+#   UMLX_INCLUDE_DIRS     : Include directory
+#   UMLX_LIBRARIES        : Libraries to link against
+#   UMLX_CXX_FLAGS        : Additional compiler flags
+#   UMLX_BUILD_ACCELERATE : True if UMLX was built with accelerate 
+#   UMLX_BUILD_METAL      : True if UMLX was built with metal 
+
+@PACKAGE_INIT@
+
+include(@PACKAGE_UMLX_CMAKE_INSTALL_MODULE_DIR@/MLXTargets.cmake)
+include(@PACKAGE_UMLX_CMAKE_INSTALL_MODULE_DIR@/extension.cmake)
+
+set_and_check(UMLX_LIBRARY_DIRS @PACKAGE_CMAKE_INSTALL_LIBDIR@)
+set_and_check(UMLX_INCLUDE_DIRS @PACKAGE_CMAKE_INSTALL_INCLUDEDIR@)
+set(UMLX_LIBRARIES umlx)
+
+find_library(UMLX_LIBRARY umlx PATHS ${UMLX_LIBRARY_DIRS})
+
+if (@UMLX_BUILD_ACCELERATE@)
+    set(UMLX_BUILD_ACCELERATE @UMLX_BUILD_ACCELERATE@)
+    set(UMLX_CXX_FLAGS ${UMLX_CXX_FLAGS} -DACCELERATE_NEW_LAPACK)
+endif()
+
+if (@UMLX_BUILD_METAL@)
+    set(UMLX_BUILD_METAL @UMLX_BUILD_METAL@)
+    set(UMLX_CXX_FLAGS ${UMLX_CXX_FLAGS} -D_METAL_)
+    set(UMLX_INCLUDE_DIRS 
+        "${UMLX_INCLUDE_DIRS};"
+        @PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/metal_cpp
+    )
+    if(@UMLX_METAL_VERSION@ GREATER_EQUAL 310)
+      set(UMLX_INCLUDE_DIRS
+        "${UMLX_INCLUDE_DIRS};"
+        @PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/umlx/backend/metal/kernels/metal_3_1)
+    else()
+      set(UMLX_INCLUDE_DIRS
+        "${UMLX_INCLUDE_DIRS};"
+        @PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/umlx/backend/metal/kernels/metal_3_0)
+    endif()
+endif()
+
+set_target_properties(umlx PROPERTIES
+    CXX_STANDARD 17
+    INTERFACE_COMPILE_OPTIONS "${UMLX_CXX_FLAGS}"
+)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(MLX DEFAULT_MSG UMLX_LIBRARY UMLX_INCLUDE_DIRS)

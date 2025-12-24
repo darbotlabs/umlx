@@ -1,7 +1,7 @@
 import argparse
 import math
 
-import mlx.core as mx
+import umlx.core as mx
 from time_utils import time_fn
 
 L = 16384

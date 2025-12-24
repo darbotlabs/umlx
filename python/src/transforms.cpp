@@ -13,17 +13,17 @@
 #include <nanobind/stl/variant.h>
 #include <nanobind/stl/vector.h>
 
-#include "mlx/array.h"
-#include "mlx/compile.h"
-#include "mlx/compile_impl.h"
-#include "mlx/transforms.h"
-#include "mlx/transforms_impl.h"
-#include "mlx/utils.h"
+#include "umlx/array.h"
+#include "umlx/compile.h"
+#include "umlx/compile_impl.h"
+#include "umlx/transforms.h"
+#include "umlx/transforms_impl.h"
+#include "umlx/utils.h"
 #include "python/src/mlx_func.h"
 #include "python/src/small_vector.h"
 #include "python/src/trees.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

@@ -5,8 +5,8 @@ import os
 import unittest
 from itertools import permutations, product
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
@@ -51,7 +51,7 @@ def np_cumlogaddexp(x1: np.ndarray, axis: int = -1):
     return out
 
 
-class TestOps(mlx_tests.MLXTestCase):
+class TestOps(umlx_tests.UMLXTestCase):
     def test_full_ones_zeros(self):
         x = mx.full(2, 3.0)
         self.assertEqual(x.shape, (2,))
@@ -3198,7 +3198,7 @@ class TestOps(mlx_tests.MLXTestCase):
         )
 
 
-class TestBroadcast(mlx_tests.MLXTestCase):
+class TestBroadcast(umlx_tests.UMLXTestCase):
     def test_broadcast_shapes(self):
         # Basic broadcasting
         self.assertEqual(mx.broadcast_shapes((1, 2, 3), (3,)), (1, 2, 3))
@@ -3245,4 +3245,4 @@ class TestBroadcast(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

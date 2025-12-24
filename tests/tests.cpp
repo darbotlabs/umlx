@@ -5,9 +5,9 @@
 
 #include <cstdlib>
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 int main(int argc, char** argv) {
   doctest::Context context;

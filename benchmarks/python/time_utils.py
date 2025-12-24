@@ -2,7 +2,7 @@
 
 import time
 
-import mlx.core as mx
+import umlx.core as mx
 
 
 def time_fn(fn, *args, **kwargs):

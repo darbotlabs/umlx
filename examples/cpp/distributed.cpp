@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 int main() {
   if (!mx::distributed::is_available()) {

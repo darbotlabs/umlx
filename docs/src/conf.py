@@ -5,7 +5,7 @@
 import os
 import subprocess
 
-import mlx.core as mx
+import umlx.core as mx
 
 # -- Project information -----------------------------------------------------
 

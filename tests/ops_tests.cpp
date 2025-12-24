@@ -7,10 +7,10 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/backend/cuda/cuda.h"
-#include "mlx/mlx.h"
+#include "umlx/backend/cuda/cuda.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test copy") {
   array x(1.0);

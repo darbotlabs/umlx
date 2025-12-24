@@ -3,7 +3,7 @@
 Transforms
 ==========
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 .. autosummary::
   :toctree: _autosummary

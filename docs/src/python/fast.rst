@@ -3,7 +3,7 @@
 Fast
 ====
 
-.. currentmodule:: mlx.core.fast
+.. currentmodule:: umlx.core.fast
 
 .. autosummary:: 
   :toctree: _autosummary

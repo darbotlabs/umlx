@@ -2,12 +2,12 @@
 
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestEinsum(mlx_tests.MLXTestCase):
+class TestEinsum(umlx_tests.UMLXTestCase):
 
     def test_simple_path(self):
         a = mx.zeros((5, 5))
@@ -360,4 +360,4 @@ class TestEinsum(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

@@ -3,7 +3,7 @@
 Distributed Communication
 =========================
 
-.. currentmodule:: mlx.core.distributed
+.. currentmodule:: umlx.core.distributed
 
 UMLX supports distributed communication operations that allow the computational cost
 of training or inference to be shared across many physical machines. At the
@@ -37,7 +37,7 @@ A distributed program in UMLX is as simple as:
 
 .. code:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
 
     world = mx.distributed.init()
     x = mx.distributed.all_sum(mx.ones(10))
@@ -52,7 +52,7 @@ distributed setting similar to the one below:
 
 .. code:: python
 
-    import mlx.core as mx
+    import umlx.core as mx
 
     x = ...
     world = mx.distributed.init()
@@ -182,7 +182,7 @@ Although the code example above works correctly; it performs one communication
 per gradient. It is significantly more efficient to aggregate several gradients
 together and perform fewer communication steps.
 
-This is the purpose of :func:`mlx.nn.average_gradients`. The final code looks
+This is the purpose of :func:`umlx.nn.average_gradients`. The final code looks
 almost identical to the example above:
 
 .. code:: python
@@ -634,7 +634,7 @@ communication capabilities of MLX.
 
   As described in the :ref:`training example <training_example>`, performing a
   lot of small communications can hurt performance. Copy the approach of
-  :func:`mlx.nn.average_gradients` to gather many small communications in a
+  :func:`umlx.nn.average_gradients` to gather many small communications in a
   single large one.
 
 - *Visualize the connectivity.*

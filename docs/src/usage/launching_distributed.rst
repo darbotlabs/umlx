@@ -5,7 +5,7 @@
 Launching Distributed Programs
 ==============================
 
-.. currentmodule:: mlx.core.distributed
+.. currentmodule:: umlx.core.distributed
 
 The MLX python package provides two utilities to help you configure
 your Macs for distributed computation and also launch distributed programs on

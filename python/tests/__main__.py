@@ -1,5 +1,5 @@
-from . import mlx_tests
+from . import umlx_tests
 
 __unittest = True
 
-mlx_tests.MLXTestRunner(module=None)
+umlx_tests.UMLXTestRunner(module=None)

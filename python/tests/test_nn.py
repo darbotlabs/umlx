@@ -4,14 +4,14 @@ import os
 import tempfile
 import unittest
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx_tests
 import numpy as np
-from mlx.utils import tree_flatten, tree_map, tree_reduce
+from umlx.utils import tree_flatten, tree_map, tree_reduce
 
 
-class TestBase(mlx_tests.MLXTestCase):
+class TestBase(umlx_tests.UMLXTestCase):
     def test_module_utilities(self):
         m = nn.Sequential(
             nn.Sequential(nn.Linear(2, 10), nn.relu),
@@ -303,7 +303,7 @@ class TestBase(mlx_tests.MLXTestCase):
         self.assertEqual(pre, post)
 
 
-class TestLayers(mlx_tests.MLXTestCase):
+class TestLayers(umlx_tests.UMLXTestCase):
     def test_identity(self):
         inputs = mx.zeros((10, 4))
         layer = nn.Identity()
@@ -1950,4 +1950,4 @@ class TestLayers(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

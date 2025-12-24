@@ -4,12 +4,12 @@ import math
 import unittest
 from itertools import permutations
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestBlas(mlx_tests.MLXTestCase):
+class TestBlas(umlx_tests.UMLXTestCase):
     @property
     def dtypes(self):
         return ["float32", "float16"]
@@ -1417,4 +1417,4 @@ class TestBlas(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

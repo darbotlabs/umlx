@@ -1,7 +1,7 @@
 Metal
 =====
 
-.. currentmodule:: mlx.core.metal
+.. currentmodule:: umlx.core.metal
 
 .. autosummary::
   :toctree: _autosummary

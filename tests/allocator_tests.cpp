@@ -4,9 +4,9 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/allocator.h"
+#include "umlx/allocator.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 TEST_CASE("test simple allocations") {
   {

@@ -5,7 +5,7 @@
 #include "python/src/convert.h"
 #include "python/src/utils.h"
 
-#include "mlx/utils.h"
+#include "umlx/utils.h"
 
 enum PyScalarT {
   pybool = 0,

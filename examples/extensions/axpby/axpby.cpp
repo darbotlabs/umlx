@@ -4,15 +4,15 @@
 #include <iostream>
 #include <sstream>
 
-#include "mlx/backend/common/utils.h"
-#include "mlx/backend/cpu/encoder.h"
-#include "mlx/utils.h"
+#include "umlx/backend/common/utils.h"
+#include "umlx/backend/cpu/encoder.h"
+#include "umlx/utils.h"
 
 #include "axpby/axpby.h"
 
 #ifdef _METAL_
-#include "mlx/backend/metal/device.h"
-#include "mlx/backend/metal/utils.h"
+#include "umlx/backend/metal/device.h"
+#include "umlx/backend/metal/utils.h"
 #endif
 
 namespace my_ext {
@@ -186,7 +186,7 @@ void Axpby::eval_gpu(
   kname += type_to_name(out);
 
   // Load the metal library
-  auto lib = d.get_library("mlx_ext", current_binary_dir());
+  auto lib = d.get_library("umlx_ext", current_binary_dir());
 
   // Make a kernel from this metal library
   auto kernel = d.get_kernel(kname, lib);

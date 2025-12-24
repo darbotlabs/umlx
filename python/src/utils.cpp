@@ -1,8 +1,8 @@
 // Copyright © 2024 Apple Inc.
 
 #include "python/src/utils.h"
-#include "mlx/ops.h"
-#include "mlx/utils.h"
+#include "umlx/ops.h"
+#include "umlx/utils.h"
 #include "python/src/convert.h"
 
 mx::array to_array(

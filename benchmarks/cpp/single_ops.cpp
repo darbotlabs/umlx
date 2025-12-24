@@ -1,9 +1,9 @@
 // Copyright © 2023 Apple Inc.
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 #include "time_utils.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 
 void time_creation_ops() {
   int M = 2000;
@@ -59,16 +59,16 @@ void time_unary_ops() {
 
   auto a = mx::random::normal({M, N});
   mx::eval(a);
-  TIME(mlx::core::abs, a, device);
+  TIME(umlx::core::abs, a, device);
   TIME(mx::negative, a, device);
   TIME(mx::sign, a, device);
   TIME(mx::square, a, device);
-  TIME(mlx::core::sqrt, a, device);
+  TIME(umlx::core::sqrt, a, device);
   TIME(mx::rsqrt, a, device);
-  TIME(mlx::core::exp, a, device);
+  TIME(umlx::core::exp, a, device);
 
   a = mx::random::uniform({M, N});
-  TIME(mlx::core::log, a, device);
+  TIME(umlx::core::log, a, device);
 }
 
 void time_binary_ops() {

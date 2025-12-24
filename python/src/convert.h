@@ -6,10 +6,10 @@
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
 
-#include "mlx/array.h"
-#include "mlx/ops.h"
+#include "umlx/array.h"
+#include "umlx/ops.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 namespace nanobind {

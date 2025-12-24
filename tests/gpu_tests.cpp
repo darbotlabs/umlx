@@ -3,9 +3,9 @@
 #include <array>
 
 #include "doctest/doctest.h"
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 static const std::array<Dtype, 5> types =
     {bool_, uint32, int32, int64, float32};

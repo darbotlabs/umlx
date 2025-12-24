@@ -1,6 +1,6 @@
 .. _distributed:
 
-.. currentmodule:: mlx.core.distributed
+.. currentmodule:: umlx.core.distributed
 
 Distributed Communication
 ==========================

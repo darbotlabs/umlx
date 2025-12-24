@@ -5,13 +5,13 @@ import math
 import unittest
 from functools import partial
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx.optimizers as opt
-import mlx.utils
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx.optimizers as opt
+import umlx.utils
+import umlx_tests
 import numpy as np
-from mlx.utils import tree_flatten, tree_map, tree_unflatten
+from umlx.utils import tree_flatten, tree_map, tree_unflatten
 
 try:
     import torch
@@ -42,7 +42,7 @@ optimizers_dict = get_all_optimizers()
 del optimizers_dict["MultiOptimizer"]
 
 
-class TestOptimizers(mlx_tests.MLXTestCase):
+class TestOptimizers(umlx_tests.UMLXTestCase):
     def test_optimizer_state(self):
         optim = opt.SGD(0.1)
         optim.state["hello"] = "world"
@@ -407,7 +407,7 @@ class TestOptimizers(mlx_tests.MLXTestCase):
         self.assertTrue(mx.allclose(result["w"], mx.full((5, 5), 3.0)))
 
 
-class TestSchedulers(mlx_tests.MLXTestCase):
+class TestSchedulers(umlx_tests.UMLXTestCase):
     def test_decay_lr(self):
         for optim_class in optimizers_dict.values():
             lr_schedule = opt.step_decay(1e-1, 0.9, 1)
@@ -581,4 +581,4 @@ class TestSchedulers(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

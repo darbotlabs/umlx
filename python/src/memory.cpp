@@ -1,9 +1,9 @@
 // Copyright © 2025 Apple Inc.
 
-#include "mlx/memory.h"
+#include "umlx/memory.h"
 #include <nanobind/nanobind.h>
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 using namespace nb::literals;
 

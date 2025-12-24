@@ -12,9 +12,9 @@
 #include <string>
 #include <unordered_map>
 #include <variant>
-#include "mlx/io.h"
+#include "umlx/io.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 using LoadOutputTypes = std::variant<

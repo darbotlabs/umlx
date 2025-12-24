@@ -6,9 +6,9 @@
 
 #include "doctest/doctest.h"
 
-#include "mlx/mlx.h"
+#include "umlx/umlx.h"
 
-using namespace mlx::core;
+using namespace uumlx::core;
 
 std::string get_temp_file(const std::string& name) {
   return std::filesystem::temp_directory_path().append(name).string();

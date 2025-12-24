@@ -2,9 +2,9 @@
 
 #include <nanobind/nanobind.h>
 
-#include "mlx/backend/cuda/cuda.h"
+#include "umlx/backend/cuda/cuda.h"
 
-namespace mx = mlx::core;
+namespace mx = umlx::core;
 namespace nb = nanobind;
 
 void init_cuda(nb::module_& m) {

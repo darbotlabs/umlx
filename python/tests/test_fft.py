@@ -3,8 +3,8 @@
 import itertools
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 try:
@@ -15,7 +15,7 @@ except ImportError as e:
     has_torch = False
 
 
-class TestFFT(mlx_tests.MLXTestCase):
+class TestFFT(umlx_tests.UMLXTestCase):
     def check_mx_np(self, op_mx, op_np, a_np, atol=1e-5, rtol=1e-6, **kwargs):
         out_np = op_np(a_np, **kwargs)
         a_mx = mx.array(a_np)
@@ -320,4 +320,4 @@ class TestFFT(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

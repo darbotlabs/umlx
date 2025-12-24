@@ -3,7 +3,7 @@
 Schedulers
 ==========
 
-.. currentmodule:: mlx.optimizers
+.. currentmodule:: umlx.optimizers
 
 .. autosummary::
    :toctree: _autosummary

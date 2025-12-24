@@ -3,7 +3,7 @@
 Saving and Loading Arrays
 =========================
 
-.. currentmodule:: mlx.core
+.. currentmodule:: umlx.core
 
 MLX supports multiple array serialization formats.
 

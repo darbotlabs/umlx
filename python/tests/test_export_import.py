@@ -5,12 +5,12 @@ import os
 import tempfile
 import unittest
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx_tests
+import umlx.core as mx
+import umlx.nn as nn
+import umlx_tests
 
 
-class TestExportImport(mlx_tests.MLXTestCase):
+class TestExportImport(umlx_tests.UMLXTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -611,4 +611,4 @@ class TestExportImport(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

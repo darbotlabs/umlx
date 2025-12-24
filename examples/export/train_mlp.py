@@ -1,9 +1,9 @@
 # Copyright © 2024 Apple Inc.
 
-import mlx.core as mx
-import mlx.nn as nn
-import mlx.optimizers as optim
-import mlx.utils
+import umlx.core as mx
+import umlx.nn as nn
+import umlx.optimizers as optim
+import umlx.utils
 
 
 class MLP(nn.Module):
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # Export the model parameter initialization
     model, optimizer, tree_structure, state = init()
     mx.eval(state)
-    mx.export_function("init_mlp.mlxfn", lambda: init()[-1])
+    mx.export_function("init_mlp.umlxfn", lambda: init()[-1])
 
     def loss_fn(params, X, y):
         model.update(params)
@@ -65,10 +65,10 @@ if __name__ == "__main__":
     mx.random.seed(42)
     example_X = mx.random.normal(shape=(batch_size, input_dim))
     example_y = mx.random.randint(low=0, high=output_dim, shape=(batch_size,))
-    mx.export_function("train_mlp.mlxfn", step, *state, example_X, example_y)
+    mx.export_function("train_mlp.umlxfn", step, *state, example_X, example_y)
 
     # Export one step of SGD
-    imported_step = mx.import_function("train_mlp.mlxfn")
+    imported_step = mx.import_function("train_mlp.umlxfn")
 
     for it in range(100):
         *state, loss = imported_step(*state, example_X, example_y)

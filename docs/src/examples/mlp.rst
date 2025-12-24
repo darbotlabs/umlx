@@ -3,26 +3,26 @@
 Multi-Layer Perceptron
 ----------------------
 
-In this example we'll learn to use ``mlx.nn`` by implementing a simple
+In this example we'll learn to use ``umlx.nn`` by implementing a simple
 multi-layer perceptron to classify MNIST.
 
 As a first step import the MLX packages we need:
 
 .. code-block:: python
 
-  import mlx.core as mx
-  import mlx.nn as nn
-  import mlx.optimizers as optim
+  import umlx.core as mx
+  import umlx.nn as nn
+  import umlx.optimizers as optim
 
   import numpy as np
 
 
 The model is defined as the ``MLP`` class which inherits from
-:class:`mlx.nn.Module`. We follow the standard idiom to make a new module:
+:class:`umlx.nn.Module`. We follow the standard idiom to make a new module:
 
 1. Define an ``__init__`` where the parameters and/or submodules are setup. See
    the :ref:`Module class docs<module_class>` for more information on how
-   :class:`mlx.nn.Module` registers parameters.
+   :class:`umlx.nn.Module` registers parameters.
 2. Define a ``__call__`` where the computation is implemented.
 
 .. code-block:: python
@@ -45,7 +45,7 @@ The model is defined as the ``MLP`` class which inherits from
 
 
 We define the loss function which takes the mean of the per-example cross
-entropy loss.  The ``mlx.nn.losses`` sub-package has implementations of some
+entropy loss.  The ``umlx.nn.losses`` sub-package has implementations of some
 commonly used loss functions.
 
 .. code-block:: python
@@ -94,7 +94,7 @@ minibatches of examples in the training set:
 
 
 Finally, we put it all together by instantiating the model, the
-:class:`mlx.optimizers.SGD` optimizer, and running the training loop:
+:class:`umlx.optimizers.SGD` optimizer, and running the training loop:
 
 .. code-block:: python
 
@@ -125,9 +125,9 @@ Finally, we put it all together by instantiating the model, the
 
 
 .. note::
-  The :func:`mlx.nn.value_and_grad` function is a convenience function to get
+  The :func:`umlx.nn.value_and_grad` function is a convenience function to get
   the gradient of a loss with respect to the trainable parameters of a model.
-  This should not be confused with :func:`mlx.core.value_and_grad`.
+  This should not be confused with :func:`umlx.core.value_and_grad`.
 
 The model should train to a decent accuracy (about 95%) after just a few passes
 over the training set. The `full example <https://github.com/ml-explore/mlx-examples/tree/main/mnist>`_

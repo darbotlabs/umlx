@@ -3,8 +3,8 @@
 import math
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
 def rope_orig(x, dims, traditional, base, scale, offset, freqs=None):
@@ -68,7 +68,7 @@ def layer_norm(x, weight, bias, eps):
     return x
 
 
-class TestFast(mlx_tests.MLXTestCase):
+class TestFast(umlx_tests.UMLXTestCase):
     def test_rope(self):
         T = 4
 
@@ -920,4 +920,4 @@ class TestFast(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

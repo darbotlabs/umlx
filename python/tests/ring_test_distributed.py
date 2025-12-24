@@ -1,8 +1,8 @@
 # Copyright © 2024 Apple Inc.
 
-import mlx.core as mx
-import mlx_distributed_tests
-import mlx_tests
+import umlx.core as mx
+import umlx_distributed_tests
+import umlx_tests
 
 
 class TestRingDistributed(mlx_distributed_tests.MLXDistributedCommonTestCase):
@@ -128,4 +128,4 @@ class TestRingDistributed(mlx_distributed_tests.MLXDistributedCommonTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

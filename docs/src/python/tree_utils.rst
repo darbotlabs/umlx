@@ -11,7 +11,7 @@ return python trees will be using the default python ``dict``, ``list`` and
 .. note::
    Dictionaries should have keys that are valid python identifiers.
 
-.. currentmodule:: mlx.utils
+.. currentmodule:: umlx.utils
 
 .. autosummary:: 
   :toctree: _autosummary

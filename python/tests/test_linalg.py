@@ -4,12 +4,12 @@ import itertools
 import math
 import unittest
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 import numpy as np
 
 
-class TestLinalg(mlx_tests.MLXTestCase):
+class TestLinalg(umlx_tests.UMLXTestCase):
     def test_norm(self):
         vector_ords = [None, 0.5, 0, 1, 2, 3, -1, float("inf"), -float("inf")]
         matrix_ords = [None, "fro", "nuc", -1, 1, -2, 2, float("inf"), -float("inf")]
@@ -618,4 +618,4 @@ class TestLinalg(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()

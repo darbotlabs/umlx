@@ -3,11 +3,11 @@
 import unittest
 from itertools import product
 
-import mlx.core as mx
-import mlx_tests
+import umlx.core as mx
+import umlx_tests
 
 
-class TestQuantized(mlx_tests.MLXTestCase):
+class TestQuantized(umlx_tests.UMLXTestCase):
     def test_quantize_dequantize(self):
         w = mx.random.normal(shape=(128, 512))
         for gs in [32, 64, 128]:
@@ -1044,4 +1044,4 @@ class TestQuantized(mlx_tests.MLXTestCase):
 
 
 if __name__ == "__main__":
-    mlx_tests.MLXTestRunner()
+    umlx_tests.UMLXTestRunner()
