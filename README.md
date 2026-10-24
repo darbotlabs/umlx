@@ -4,23 +4,22 @@
 [**Documentation**](https://github.com/darbotlabs/umlx) |
 [**Examples**](#examples) | [**API**](#api)
 
-UMLX (Universal MLX) is an enhanced array framework for machine learning with cross-platform support including Apple Silicon, x64, ARM, Nvidia CUDA, and AMD ROCM for GPU and NPU acceleration.
+UMLX (Universal MLX) is a research fork of Apple MLX targeting heterogeneous hardware. The current source contains CPU, Metal, and CUDA backends. ROCm and NPU acceleration are roadmap items; backend source does not by itself establish tested wheels for every OS and architecture.
 
 Originally based on Apple's MLX framework, UMLX extends support to a universal set of hardware platforms while maintaining API compatibility.
 
 Some key features of UMLX include:
 
-- **Cross-Platform Support**: UMLX runs on Apple Silicon (Metal), Nvidia GPUs (CUDA), AMD GPUs (ROCM), x64 CPUs, and ARM processors including NPUs.
+- **Backend implementation**: CPU, Apple Metal, and Nvidia CUDA code is present. AMD ROCm and NPU backends are not implemented in this tree.
 
-- **Familiar APIs**: UMLX maintains API compatibility with MLX, closely following NumPy conventions. It includes fully featured Python, C++, [C](https://github.com/ml-explore/mlx-c), and
-   [Swift](https://github.com/ml-explore/mlx-swift/) APIs. Higher-level packages like `umlx.nn` and
+- **Familiar APIs**: UMLX follows the MLX/NumPy array API design with Python and C++ interfaces. The upstream [C](https://github.com/ml-explore/mlx-c) and [Swift](https://github.com/ml-explore/mlx-swift/) projects are references, not verified bindings to the renamed UMLX runtime. Higher-level packages like `umlx.nn` and
    `umlx.optimizers` follow PyTorch patterns for building complex models.
 
-- **REST API Integration**: Complete FastAPI integration exposes all functionality via REST API on port 1023.
+- **REST API Integration**: FastAPI exposes array creation and binary operations, device selection, and optional single-turn LLM providers. It binds to loopback on port 1023 by default.
 
-- **Hardware Configurations**: 
+- **Hardware Targets** (validate each build and device combination):
   - DGX Spark containers with Nvidia Workbench optimizations
-  - AMD ROCM with unified memory architecture (x64 + 128GB unified memory + NPU)
+  - AMD unified-memory GPU/NPU configurations (future backend work)
   - Nvidia GPUs with CUDA Toolkit (Compute Capability 7.5+)
   - ARM Processors (expanded from x86_64-only support)
   - AMD Threadripper CPU/RAM configurations
@@ -36,9 +35,9 @@ Some key features of UMLX include:
   dynamically. Changing the shapes of function arguments does not trigger
   slow compilations, and debugging is simple and intuitive.
 
-- **Multi-device**: Operations can run on any supported device: CPU, GPU (Metal/CUDA/ROCM), and NPU.
+- **Multi-device**: CPU and GPU operations depend on the compiled backend (Metal or CUDA).
 
-- **Unified memory**: UMLX extends MLX's unified memory model across platforms. Arrays live in shared memory where supported (Apple Silicon, AMD unified architecture), enabling efficient operations without data transfer.
+- **Unified memory**: UMLX inherits MLX memory behavior for its implemented backends. Physical CPU/GPU memory sharing and transfer costs depend on the backend and hardware; AMD shared RAM does not implement ROCm or NPU execution.
 
 UMLX is designed to provide a universal machine learning framework across diverse hardware platforms. The framework maintains ease of use while being efficient for training and deploying models across x64, ARM, Apple Silicon, Nvidia, and AMD hardware.
 
@@ -87,11 +86,25 @@ python -m umlx.api.server
 
 API endpoints provide access to:
 - Array operations
-- Model inference
-- Training utilities
+- Optional single-turn text generation through Apple Foundation Models or a local MLX-LM server
 - Device management
 
 See the [API documentation](https://github.com/darbotlabs/umlx/tree/main/docs) for detailed endpoint information.
+
+## Apple Foundation Models and MLX-LM
+
+See [the integration research and runbook](docs/APPLE_FM_MLX_INTEGRATION.md) for
+source evidence, setup, limitations, and the hardware validation matrix.
+
+```bash
+# Run from a source checkout without compiling the array extension:
+PYTHONPATH=python python -m umlx.llm available
+PYTHONPATH=python python -m umlx.llm probe-fm
+```
+
+The optional provider layer uses `apple-fm-sdk` for Apple's on-device model and
+loopback HTTP for MLX-LM. It does not port Apple model weights, enable PCC,
+or replace `mlx.*` imports with `umlx.*` inside third-party packages.
 
 ## Installation
 
@@ -115,11 +128,7 @@ Supports CUDA Toolkit 12 and 13 with Compute Capability 7.5+ (Turing, Ampere, Ad
 
 ### Linux with ROCM (AMD)
 
-For AMD GPU support (coming soon):
-
-```bash
-pip install umlx[rocm]
-```
+ROCm is planned. This tree has no ROCm backend or `rocm` installation extra; do not treat `pip install umlx[rocm]` as an implemented GPU path.
 
 ### CPU-Only (x64/ARM)
 
