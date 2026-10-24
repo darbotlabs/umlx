@@ -244,11 +244,16 @@ if __name__ == "__main__":
             "pydantic>=2.10.0",
         ],
     }
+    extras["llm"] = ["httpx>=0.27,<1"]
+    extras["apple-fm"] = [
+        'apple-fm-sdk; platform_system == "Darwin" and platform_machine == "arm64"'
+    ]
     entry_points = {
         "console_scripts": [
             "umlx.launch = umlx._distributed_utils.launch:main",
             "umlx.distributed_config = umlx._distributed_utils.config:main",
             "umlx.api = umlx.api.server:main",
+            "umlx.llm = umlx.llm:main",
         ]
     }
     install_requires = []

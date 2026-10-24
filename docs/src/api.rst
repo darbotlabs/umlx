@@ -254,7 +254,7 @@ The default port is 1023. To use a different port:
 Host Binding
 ^^^^^^^^^^^^
 
-By default, the server binds to ``0.0.0.0`` (all interfaces). To bind to localhost only:
+By default, the server binds to ``127.0.0.1`` (loopback). To make this explicit:
 
 .. code-block:: shell
 
@@ -285,3 +285,28 @@ Performance
 - Array operations are performed using UMLX's efficient backend
 - Consider the network overhead for large array transfers
 - Use batch operations where possible for better performance
+
+
+Optional language-model providers
+---------------------------------
+
+``GET /llm/providers`` reports Apple system-model availability and MLX-LM
+configuration. A configured MLX endpoint is not a verified loaded model.
+
+``POST /llm/respond`` accepts ``provider`` (``apple-fm`` or ``mlx``), ``prompt``,
+optional ``instructions``, ``max_tokens``, ``temperature``, and ``timeout``.
+It returns provider, model, text, finish reason when supplied by the provider,
+and elapsed wall-clock milliseconds. Unsupported fields are rejected.
+
+This is single-turn, non-streaming text inference. Tools, images, guided
+generation, PCC, and automatic fallback are not exposed by this adapter.
+The provider SDKs may have capabilities beyond this shared interface.
+
+Use ``pip install httpx`` for the MLX HTTP client and ``pip install apple-fm-sdk``
+on a compatible Mac for the Apple provider, or the corresponding UMLX ``llm``
+and ``apple-fm`` extras when building/installing this checkout.
+See ``docs/APPLE_FM_MLX_INTEGRATION.md`` for the complete runbook.
+
+The API has no built-in authentication. The new loopback default applies to all
+routes. Explicitly selecting an external bind address requires an authenticated
+gateway and deployment-specific access controls.
