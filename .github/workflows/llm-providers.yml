@@ -1,0 +1,40 @@
+name: LLM provider contracts
+
+on:
+  pull_request:
+    paths:
+      - 'python/umlx/llm.py'
+      - 'python/umlx/api/**'
+      - 'tests/test_llm_providers.py'
+      - 'tests/validate_api.py'
+      - 'setup.py'
+      - '.github/workflows/llm-providers.yml'
+  push:
+    branches: [main, 'feat/apple-fm-mlx-providers']
+    paths:
+      - 'python/umlx/llm.py'
+      - 'python/umlx/api/**'
+      - 'tests/test_llm_providers.py'
+      - 'tests/validate_api.py'
+      - 'setup.py'
+      - '.github/workflows/llm-providers.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install fastapi uvicorn pydantic httpx pytest
+      - run: python -m pytest tests/test_llm_providers.py -q
+        env:
+          PYTHONPATH: python
+      - run: python tests/validate_api.py
